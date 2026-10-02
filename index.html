@@ -1,218 +1,786 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Read & Grow</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:linear-gradient(135deg,#eaf7ff,#f7fbff);font-family:"Trebuchet MS",Arial,sans-serif;color:#29475c}
-.app{max-width:1000px;margin:auto;padding:18px}
-header,.card{background:white;border:2px solid #d9effc;border-radius:22px;padding:20px;margin-bottom:16px;box-shadow:0 5px 18px #6aaed018}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.brand{display:flex;align-items:center;gap:12px}
-.plant{font-size:45px}
-h1{margin:0;color:#318bc1;font-size:30px}
-.subtitle{margin:5px 0 0;color:#7191a5}
-.logo{width:82px;height:82px;object-fit:contain}
-label{display:block;font-weight:bold;color:#397fa5;margin-bottom:8px}
-input{width:100%;padding:13px;border:2px solid #cfe8f6;border-radius:12px;font-size:17px}
-.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.level{padding:14px 8px;border:2px solid #d8edf8;border-radius:16px;background:#f4fbff;color:#347ca4;font-size:17px;font-weight:bold;cursor:pointer}
-.level.active{background:#d8f0ff;border-color:#55a8d8}
-.level span{display:block;font-size:28px}
-.level small{display:block;font-size:12px;font-weight:normal;margin-top:4px}
-.meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:16px}
-.pill{background:#e8f6ff;color:#287ba8;padding:7px 12px;border-radius:20px;font-size:13px;font-weight:bold}
-h2{color:#3685b3;margin:0 0 14px;font-size:22px}
-.story{font-size:22px;line-height:2}
-.sentence{margin-bottom:9px}
-.word{display:inline;border-radius:5px;padding:1px 2px;cursor:pointer}
-.word:hover{background:#eaf7ff}
-.incorrect{color:#c82f38!important;background:#ffe4e5!important;text-decoration:underline wavy #c82f38;font-weight:bold}
-.hint{background:#f0f9ff;border:1px dashed #acd9ee;padding:12px;border-radius:13px;text-align:center;color:#628399;font-size:14px;margin-top:15px}
-button{font-family:inherit}
-.submit{display:block;margin:0 auto 16px;background:#399bd0;color:white;border:0;padding:14px 28px;border-radius:15px;font-size:17px;font-weight:bold;cursor:pointer}
-.submit:hover{background:#267fae}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
-.stat{background:#f1f9ff;border-radius:13px;text-align:center;padding:13px 5px}
-.num{font-size:26px;font-weight:bold;color:#358dc0}
-.small{font-size:12px;color:#7893a5;margin-top:3px}
-.result{border:3px solid #9dd8f0}
-.hidden{display:none}
-.resulthead{text-align:center;color:#3489b9;font-size:25px;font-weight:bold;margin-bottom:15px}
-.accuracy{text-align:center;background:#eaf7ff;border-radius:16px;padding:16px;margin:15px 0}
-.accuracy strong{display:block;font-size:40px;color:#318bc1}
-.resultreading{background:#f8fcff;border:1px solid #dceef7;padding:15px;border-radius:14px;font-size:20px;line-height:1.9}
-.practice{background:#fff7e9;border:1px solid #f3dfb9;border-radius:13px;padding:13px;line-height:2}
-.practice span{display:inline-block;background:white;padding:3px 8px;border-radius:8px;margin:3px;font-weight:bold}
-.nav{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
-.nav button,.secondary{padding:12px;border:2px solid #d8edf8;border-radius:13px;background:white;color:#397fa5;font-size:14px;font-weight:bold;cursor:pointer}
-.nav button:disabled{opacity:.4;cursor:not-allowed}
-.session{text-align:center;color:#6c899d;font-size:14px}
-footer{text-align:center;color:#92a9b8;font-size:12px;padding:5px 0 18px}
+
+body{
+  margin:0;
+  background:linear-gradient(135deg,#eaf7ff,#f7fbff);
+  font-family:"Trebuchet MS",Arial,sans-serif;
+  color:#29475c;
+}
+
+.app{
+  max-width:1000px;
+  margin:auto;
+  padding:18px;
+}
+
+header,.card{
+  background:white;
+  border:2px solid #d9effc;
+  border-radius:22px;
+  padding:20px;
+  margin-bottom:16px;
+  box-shadow:0 5px 18px #6aaed018;
+}
+
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.plant{
+  font-size:45px;
+}
+
+h1{
+  margin:0;
+  color:#318bc1;
+  font-size:30px;
+}
+
+.subtitle{
+  margin:5px 0 0;
+  color:#7191a5;
+}
+
+.logo{
+  width:82px;
+  height:82px;
+  object-fit:contain;
+}
+
+label{
+  display:block;
+  font-weight:bold;
+  color:#397fa5;
+  margin-bottom:8px;
+}
+
+input{
+  width:100%;
+  padding:13px;
+  border:2px solid #cfe8f6;
+  border-radius:12px;
+  font-size:17px;
+}
+
+.levels{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.level{
+  padding:14px 8px;
+  border:2px solid #d8edf8;
+  border-radius:16px;
+  background:#f4fbff;
+  color:#347ca4;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.level.active{
+  background:#d8f0ff;
+  border-color:#55a8d8;
+}
+
+.level span{
+  display:block;
+  font-size:28px;
+}
+
+.level small{
+  display:block;
+  font-size:12px;
+  font-weight:normal;
+  margin-top:4px;
+}
+
+.meta{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:16px;
+}
+
+.pill{
+  background:#e8f6ff;
+  color:#287ba8;
+  padding:7px 12px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:bold;
+}
+
+h2{
+  color:#3685b3;
+  margin:0 0 14px;
+  font-size:22px;
+}
+
+.story{
+  font-size:22px;
+  line-height:2;
+}
+
+.sentence{
+  margin-bottom:9px;
+}
+
+.word{
+  display:inline;
+  border-radius:5px;
+  padding:1px 2px;
+  cursor:pointer;
+}
+
+.word:hover{
+  background:#eaf7ff;
+}
+
+.incorrect{
+  color:#c82f38!important;
+  background:#ffe4e5!important;
+  text-decoration:underline wavy #c82f38;
+  font-weight:bold;
+}
+
+.hint{
+  background:#f0f9ff;
+  border:1px dashed #acd9ee;
+  padding:12px;
+  border-radius:13px;
+  text-align:center;
+  color:#628399;
+  font-size:14px;
+  margin-top:15px;
+}
+
+button{
+  font-family:inherit;
+}
+
+.submit{
+  display:block;
+  margin:0 auto 16px;
+  background:#399bd0;
+  color:white;
+  border:0;
+  padding:14px 28px;
+  border-radius:15px;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.submit:hover{
+  background:#267fae;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:9px;
+}
+
+.stat{
+  background:#f1f9ff;
+  border-radius:13px;
+  text-align:center;
+  padding:13px 5px;
+}
+
+.num{
+  font-size:26px;
+  font-weight:bold;
+  color:#358dc0;
+}
+
+.small{
+  font-size:12px;
+  color:#7893a5;
+  margin-top:3px;
+}
+
+.result{
+  border:3px solid #9dd8f0;
+}
+
+.hidden{
+  display:none;
+}
+
+.resulthead{
+  text-align:center;
+  color:#3489b9;
+  font-size:25px;
+  font-weight:bold;
+  margin-bottom:15px;
+}
+
+.accuracy{
+  text-align:center;
+  background:#eaf7ff;
+  border-radius:16px;
+  padding:16px;
+  margin:15px 0;
+}
+
+.accuracy strong{
+  display:block;
+  font-size:40px;
+  color:#318bc1;
+}
+
+.resultreading{
+  background:#f8fcff;
+  border:1px solid #dceef7;
+  padding:15px;
+  border-radius:14px;
+  font-size:20px;
+  line-height:1.9;
+}
+
+.practice{
+  background:#fff7e9;
+  border:1px solid #f3dfb9;
+  border-radius:13px;
+  padding:13px;
+  line-height:2;
+}
+
+.practice span{
+  display:inline-block;
+  background:white;
+  padding:3px 8px;
+  border-radius:8px;
+  margin:3px;
+  font-weight:bold;
+}
+
+.nav{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:9px;
+}
+
+.nav button,.secondary{
+  padding:12px;
+  border:2px solid #d8edf8;
+  border-radius:13px;
+  background:white;
+  color:#397fa5;
+  font-size:14px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.nav button:disabled{
+  opacity:.4;
+  cursor:not-allowed;
+}
+
+.session{
+  text-align:center;
+  color:#6c899d;
+  font-size:14px;
+}
+
+footer{
+  text-align:center;
+  color:#92a9b8;
+  font-size:12px;
+  padding:5px 0 18px;
+}
+
 @media(max-width:600px){
- .app{padding:10px}header{padding:14px}h1{font-size:24px}.plant{font-size:35px}.logo{width:58px;height:58px}
- .levels{grid-template-columns:1fr}.level{display:flex;align-items:center;justify-content:center;gap:10px}.level span{font-size:24px}.level small{margin:0}
- .story{font-size:19px}.stats{grid-template-columns:repeat(2,1fr)}.nav{grid-template-columns:1fr}.resultreading{font-size:18px}
+  .app{padding:10px}
+  header{padding:14px}
+  h1{font-size:24px}
+  .plant{font-size:35px}
+  .logo{width:58px;height:58px}
+
+  .levels{
+    grid-template-columns:1fr;
+  }
+
+  .level{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+  }
+
+  .level span{
+    font-size:24px;
+  }
+
+  .level small{
+    margin:0;
+  }
+
+  .story{
+    font-size:19px;
+  }
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .nav{
+    grid-template-columns:1fr;
+  }
+
+  .resultreading{
+    font-size:18px;
+  }
 }
 </style>
 </head>
+
 <body>
+
 <div class="app">
+
 <header>
-  <div class="brand"><div class="plant">🌱</div><div><h1>Read & Grow</h1><p class="subtitle">Read • Grow • Improve</p></div></div>
-  <img class="logo" alt="School logo"
-       src="https://drive.google.com/thumbnail?id=1pmEJ97CNYvvMj8oA8wob30rH8OiHUe-5&sz=w400"
-       onerror="this.style.display='none'">
+  <div class="brand">
+    <div class="plant">🌱</div>
+    <div>
+      <h1>Read & Grow</h1>
+      <p class="subtitle">Read • Grow • Improve</p>
+    </div>
+  </div>
+
+  <img
+    class="logo"
+    alt="School logo"
+    src="https://drive.google.com/thumbnail?id=1pmEJ97CNYvvMj8oA8wob30rH8OiHUe-5&sz=w400"
+    onerror="this.style.display='none'"
+  >
 </header>
 
+
 <section class="card">
+
   <label for="studentName">👤 Student Name</label>
-  <input id="studentName" placeholder="Enter student's name" autocomplete="off">
+
+  <input
+    id="studentName"
+    placeholder="Enter student's name"
+    autocomplete="off"
+  >
+
 </section>
 
+
 <section class="card">
+
   <h2>🌟 Choose Reading Level</h2>
+
   <div class="levels">
-    <button class="level active" data-level="starter"><span>🌱</span>Starter<small>Pre-A1 · about 25–35 words</small></button>
-    <button class="level" data-level="mover"><span>🌿</span>Mover<small>A1 · about 60–80 words</small></button>
-    <button class="level" data-level="flyer"><span>🌳</span>Flyer<small>A2 · about 100–130 words</small></button>
+
+    <button
+      class="level active"
+      data-level="starter"
+    >
+      <span>🌱</span>
+      Starter
+      <small>CVC + consonant blends · Pre-A1</small>
+    </button>
+
+    <button
+      class="level"
+      data-level="mover"
+    >
+      <span>🌿</span>
+      Mover
+      <small>A1 · simple sentences & stories</small>
+    </button>
+
+    <button
+      class="level"
+      data-level="flyer"
+    >
+      <span>🌳</span>
+      Flyer
+      <small>A2 · longer connected reading</small>
+    </button>
+
   </div>
+
 </section>
 
+
 <section class="card">
+
   <div class="meta">
-    <span class="pill" id="storyNumber">Story 1</span>
-    <span class="pill" id="levelBadge">🌱 Starter · Pre-A1</span>
-    <span class="pill" id="wordTarget">Target: 25–35 words</span>
+
+    <span class="pill" id="storyNumber">
+      Story 1
+    </span>
+
+    <span class="pill" id="levelBadge">
+      🌱 Starter · Pre-A1
+    </span>
+
+    <span class="pill" id="wordTarget">
+      CVC + Blends
+    </span>
+
   </div>
-  <h2 id="storyTitle">A Day in the Garden</h2>
+
+  <h2 id="storyTitle">
+    The Big Dog
+  </h2>
+
   <div class="story" id="storyText"></div>
-  <div class="hint">👂 Listen as the student reads. Tap a word to mark it incorrect. Tap it again to correct it.</div>
+
+  <div class="hint">
+    👂 Listen as the student reads.
+    Tap a word to mark it incorrect.
+    Tap it again to correct it.
+  </div>
+
 </section>
 
-<button class="submit" id="submitBtn">📚 Submit Reading</button>
+
+<button class="submit" id="submitBtn">
+  📚 Submit Reading
+</button>
+
 
 <section class="card">
+
   <h2>✏️ Reading Check</h2>
+
   <div class="stats">
-    <div class="stat"><div class="num" id="totalWords">0</div><div class="small">Total Words</div></div>
-    <div class="stat"><div class="num" id="correctWords">0</div><div class="small">Correct</div></div>
-    <div class="stat"><div class="num" id="incorrectWords">0</div><div class="small">Incorrect</div></div>
-    <div class="stat"><div class="num" id="accuracy">100%</div><div class="small">Accuracy</div></div>
+
+    <div class="stat">
+      <div class="num" id="totalWords">0</div>
+      <div class="small">Total Words</div>
+    </div>
+
+    <div class="stat">
+      <div class="num" id="correctWords">0</div>
+      <div class="small">Correct</div>
+    </div>
+
+    <div class="stat">
+      <div class="num" id="incorrectWords">0</div>
+      <div class="small">Incorrect</div>
+    </div>
+
+    <div class="stat">
+      <div class="num" id="accuracy">100%</div>
+      <div class="small">Accuracy</div>
+    </div>
+
   </div>
+
 </section>
+
 
 <section class="card result hidden" id="resultCard">
-  <div class="resulthead">🎉 Reading Result</div>
-  <div id="resultName" style="text-align:center;font-size:19px;font-weight:bold"></div>
-  <p style="text-align:center"><span class="pill" id="resultLevel"></span></p>
-  <div class="stats">
-    <div class="stat"><div class="num" id="rCorrect">0</div><div class="small">Correct Words</div></div>
-    <div class="stat"><div class="num" id="rIncorrect">0</div><div class="small">Incorrect Words</div></div>
-    <div class="stat"><div class="num" id="rTotal">0</div><div class="small">Total Words</div></div>
-    <div class="stat"><div class="num" id="rAccuracy">100%</div><div class="small">Accuracy</div></div>
+
+  <div class="resulthead">
+    🎉 Reading Result
   </div>
-  <div class="accuracy"><div>Reading Accuracy</div><strong id="accuracyLarge">100%</strong><div id="resultMessage"></div></div>
+
+  <div
+    id="resultName"
+    style="text-align:center;font-size:19px;font-weight:bold"
+  ></div>
+
+  <p style="text-align:center">
+    <span class="pill" id="resultLevel"></span>
+  </p>
+
+  <div class="stats">
+
+    <div class="stat">
+      <div class="num" id="rCorrect">0</div>
+      <div class="small">Correct Words</div>
+    </div>
+
+    <div class="stat">
+      <div class="num" id="rIncorrect">0</div>
+      <div class="small">Incorrect Words</div>
+    </div>
+
+    <div class="stat">
+      <div class="num" id="rTotal">0</div>
+      <div class="small">Total Words</div>
+    </div>
+
+    <div class="stat">
+      <div class="num" id="rAccuracy">100%</div>
+      <div class="small">Accuracy</div>
+    </div>
+
+  </div>
+
+  <div class="accuracy">
+
+    <div>Reading Accuracy</div>
+
+    <strong id="accuracyLarge">
+      100%
+    </strong>
+
+    <div id="resultMessage"></div>
+
+  </div>
+
   <h2>📖 Student's Reading</h2>
+
   <div class="resultreading" id="resultReading"></div>
-  <h2 style="margin-top:18px">🌱 Words to Practise</h2>
+
+  <h2 style="margin-top:18px">
+    🌱 Words to Practise
+  </h2>
+
   <div class="practice" id="practiceWords"></div>
+
 </section>
+
 
 <div class="nav">
-  <button id="backBtn" disabled>← Previous Story</button>
-  <button id="newBtn">✨ New Story</button>
-  <button id="nextBtn" disabled>Next Story →</button>
+
+  <button id="backBtn" disabled>
+    ← Previous Story
+  </button>
+
+  <button id="newBtn">
+    ✨ New Story
+  </button>
+
+  <button id="nextBtn" disabled>
+    Next Story →
+  </button>
+
 </div>
+
 
 <section class="card session">
+
   <strong>🌟 Session Progress</strong>
-  <p id="sessionStats">0 readings submitted · 0 words read · 0% average accuracy</p>
-  <button class="secondary" id="resetBtn">Reset Session</button>
+
+  <p id="sessionStats">
+    0 readings submitted · 0 words read · 0% average accuracy
+  </p>
+
+  <button class="secondary" id="resetBtn">
+    Reset Session
+  </button>
+
 </section>
-<footer>Read & Grow · A classroom reading practice tool</footer>
+
+
+<footer>
+  Read & Grow · A classroom reading practice tool
+</footer>
+
 </div>
 
-<script>
-/*
-  STORY DESIGN TARGETS:
-  Starter: Pre-A1, short simple sentences, familiar words.
-  Mover: A1, connected everyday events and simple descriptions.
-  Flyer: A2, linked ideas, reasons, time relationships and descriptions.
 
-  Word counts are approximate design targets, not official Cambridge limits.
-  The app uses curated stories; it does not generate or certify CEFR levels using AI.
-*/
+<script>
+
+/* =========================================================
+   READING LEVELS
+   ========================================================= */
 
 const LEVELS = {
-  starter: {name:"Starter", cefr:"Pre-A1", icon:"🌱", target:"25–35 words"},
-  mover:   {name:"Mover", cefr:"A1", icon:"🌿", target:"60–80 words"},
-  flyer:   {name:"Flyer", cefr:"A2", icon:"🌳", target:"100–130 words"}
+
+  starter:{
+    name:"Starter",
+    cefr:"Pre-A1",
+    icon:"🌱",
+    target:"CVC + consonant blends"
+  },
+
+  mover:{
+    name:"Mover",
+    cefr:"A1",
+    icon:"🌿",
+    target:"60–80 words"
+  },
+
+  flyer:{
+    name:"Flyer",
+    cefr:"A2",
+    icon:"🌳",
+    target:"100–130 words"
+  }
+
 };
 
+
+/* =========================================================
+   STORY BANK
+   STARTER:
+   - Mostly CVC words
+   - Simple consonant blends
+   - Very short sentences
+   - Limited difficult sight words
+   - No difficult character names
+   ========================================================= */
+
 const STORIES = {
-starter: [
+
+starter:[
+
 {
-title:"A Day in the Garden",
-text:`Mia has a little garden. She sees a red bug on a green leaf. A bird sits in a tree. Mia gives the plants some water. The sun is hot, but the flowers look happy. She smiles and waves to the bird.`
+  title:"The Big Dog",
+  text:
+  `A big dog can run. The dog can hop and sit. The dog has a red ball. It can grab the ball. The dog runs back.`
 },
+
 {
-title:"The Lost Ball",
-text:`Ben has a blue ball. He plays with his dog in the park. The ball rolls under a big tree. Ben looks left and right. His dog finds the ball in the grass. Ben laughs and gives his dog a hug.`
+  title:"The Cat and the Sun",
+  text:
+  `A cat sat on a mat. The sun was hot. The cat got up. It ran to a big box. The cat sat in the box.`
 },
+
 {
-title:"A Rainy Day",
-text:`It is raining today. Lily puts on her yellow coat. She takes her red boots and an umbrella. She walks with Mum to the shop. They buy milk, bread, and apples. At home, Lily draws a big rainbow.`
+  title:"The Red Hat",
+  text:
+  `Sam has a red hat. The hat is big. Sam can hop and run. He ran past a big rock. Then Sam sat on the grass.`
 },
+
 {
-title:"The Little Cat",
-text:`A little cat sits by the door. It is white with black ears. Tom gives the cat some food and water. The cat eats, then jumps onto a chair. Tom smiles. He wants to play with his new friend.`
+  title:"A Frog Can Jump",
+  text:
+  `A frog can jump. The frog can swim. It can hop on a log. The frog got wet. It sat on the log and had a rest.`
 },
+
 {
-title:"At School",
-text:`Sam goes to school with his bag. He sees his friends at the gate. They read a book and draw a sun. At lunch, they eat rice and fruit. After class, Sam waves to his teacher and goes home.`
+  title:"The Fish",
+  text:
+  `A fish can swim. The fish is in a pond. It can swim past a rock. A small frog sat on the rock. The fish swam fast.`
+},
+
+{
+  title:"The Big Ship",
+  text:
+  `A big ship is on the sea. The ship can stop at the dock. A man has a red flag. He can wave the flag. The ship can go.`
+},
+
+{
+  title:"The Black Cat",
+  text:
+  `A black cat sat on a step. It saw a small bug. The cat ran fast. The bug hid in a box. The cat sat and had a nap.`
+},
+
+{
+  title:"The Blue Flag",
+  text:
+  `A boy has a blue flag. He can run with the flag. The wind is strong. The flag can flap. The boy stops by a big tree.`
+},
+
+{
+  title:"The Lost Cap",
+  text:
+  `Tom has a cap. His cap is red. Tom ran to the park. He sat on a bench. His cap fell off. Tom got up and got his cap.`
+},
+
+{
+  title:"The Small Crab",
+  text:
+  `A small crab is on the sand. The crab can walk fast. It can swim in the sea. A big wave came. The crab went back to the sand.`
 }
+
 ],
-mover: [
+
+
+/* =========================================================
+   MOVER
+   ========================================================= */
+
+mover:[
+
 {
-title:"The Picnic Surprise",
-text:`On Saturday, Anna and her brother went to the park with their parents. They carried sandwiches, apples, and a bottle of water in a basket. The weather was warm, so they found a shady place under a tree. While they were eating, Anna heard a small noise behind the bench. A little brown dog came out and wagged its tail. It looked hungry and thirsty. Their father gave it some water, while Anna asked a park worker for help. Soon, the dog's owner arrived. He thanked the family for looking after his pet. Anna was happy that they had helped the lost dog.`
+  title:"The Picnic Surprise",
+  text:
+  `On Saturday, Anna and her brother went to the park with their parents. They carried sandwiches, apples, and a bottle of water in a basket. The weather was warm, so they found a shady place under a tree. While they were eating, Anna heard a small noise behind the bench. A little brown dog came out and wagged its tail. It looked hungry and thirsty. Their father gave it some water, while Anna asked a park worker for help. Soon, the dog's owner arrived. He thanked the family for looking after his pet. Anna was happy that they had helped the lost dog.`
 },
+
 {
-title:"The Class Plant",
-text:`Ms Green brought a small plant to the classroom on Monday. She asked the children to help it grow. First, Leo filled a pot with soil. Then, Mia put the plant in the middle and covered its roots. The class placed the pot near the window because plants need light. Every morning, two children checked the soil and added a little water. After several days, a new green leaf appeared. Everyone wanted to look at it. The children learned that plants need time, light, and water to grow. They decided to keep a plant diary and draw a picture every Friday.`
+  title:"The Class Plant",
+  text:
+  `Ms Green brought a small plant to the classroom on Monday. She asked the children to help it grow. First, Leo filled a pot with soil. Then, Mia put the plant in the middle and covered its roots. The class placed the pot near the window because plants need light. Every morning, two children checked the soil and added a little water. After several days, a new green leaf appeared. Everyone wanted to look at it. The children learned that plants need time, light, and water to grow.`
 },
+
 {
-title:"A Day at the Beach",
-text:`Last weekend, Jack and his family visited the beach. They arrived early because they wanted to find a quiet place near the water. Jack built a sandcastle while his sister collected shells. Their mother reminded them to stay close and wear hats in the sunshine. Later, dark clouds appeared in the sky, and the wind became stronger. The family packed their things before the rain started. On the way home, they stopped at a small café for a warm drink. Jack was a little disappointed that they had to leave early, but he enjoyed the day. He hoped they could return next weekend.`
+  title:"A Day at the Beach",
+  text:
+  `Last weekend, Jack and his family visited the beach. They arrived early because they wanted to find a quiet place near the water. Jack built a sandcastle while his sister collected shells. Their mother reminded them to stay close and wear hats in the sunshine. Later, dark clouds appeared in the sky, and the wind became stronger. The family packed their things before the rain started. On the way home, they stopped at a small café for a warm drink. Jack hoped they could return next weekend.`
 },
+
 {
-title:"The Helpful Neighbours",
-text:`One afternoon, Nina noticed that her elderly neighbour was carrying several heavy bags. Nina asked if she could help. The neighbour smiled and gave her one bag to carry. They walked slowly to the front door and put the shopping on the kitchen table. The neighbour thanked Nina and offered her a glass of orange juice. While they talked, Nina learned that the neighbour had hurt her foot. Nina told her mother about it when she got home. The next day, they made a card and brought some fruit to their neighbour. Nina felt pleased because a small act of kindness had made someone feel better.`
+  title:"The Helpful Neighbour",
+  text:
+  `One afternoon, Nina noticed that her neighbour was carrying several heavy bags. Nina asked if she could help. The neighbour smiled and gave her one bag to carry. They walked slowly to the front door and put the shopping on the kitchen table. The neighbour thanked Nina and offered her a glass of orange juice. While they talked, Nina learned that the neighbour had hurt her foot. Nina told her mother about it when she got home. The next day, they made a card and brought some fruit to their neighbour.`
 }
+
 ],
-flyer: [
+
+
+/* =========================================================
+   FLYER
+   ========================================================= */
+
+flyer:[
+
 {
-title:"The Mystery of the Missing Lunch",
-text:`On Tuesday morning, Oliver arrived at school with a lunch box packed by his father. He put it inside his bag and hurried outside to meet his friends. When the lunch bell rang, Oliver opened his bag, but the lunch box had disappeared. He checked every pocket and looked under his desk. His friend Sophie suggested that he think carefully about where he had been that morning. Oliver remembered stopping beside the library to return a book. They went there together and asked the librarian for help. Fortunately, she had found a lunch box on a chair and kept it safely behind the desk. Oliver checked the name on the lid and realised it was his. He thanked the librarian and returned to class, relieved that he would not have to spend the afternoon feeling hungry. From then on, he decided to check his bag before leaving home.`,
+  title:"The Mystery of the Missing Lunch",
+  text:
+  `On Tuesday morning, Oliver arrived at school with a lunch box packed by his father. He put it inside his bag and hurried outside to meet his friends. When the lunch bell rang, Oliver opened his bag, but the lunch box had disappeared. He checked every pocket and looked under his desk. His friend Sophie suggested that he think carefully about where he had been that morning. Oliver remembered stopping beside the library to return a book. They went there together and asked the librarian for help. Fortunately, she had found a lunch box on a chair and kept it safely behind the desk. Oliver checked the name on the lid and realised it was his. He thanked the librarian and returned to class, relieved that he would not have to spend the afternoon feeling hungry.`
 },
+
 {
-title:"A Garden for Everyone",
-text:`When the school announced a garden project, the students were excited, although nobody knew exactly how much work it would require. Their teacher divided them into small groups. One group planned where to grow vegetables, while another collected old containers that could be used as plant pots. At first, the soil was dry and difficult to dig, so the students added compost and watered it carefully. They planted beans, tomatoes, and herbs because these plants could be used in the school kitchen. During the following weeks, the children took turns caring for the garden. Some plants grew quickly, but others needed more time and attention. One morning, they discovered that insects had eaten several leaves. Instead of using strong chemicals, the class researched safer ways to protect the plants. By the end of the term, they had harvested enough vegetables to share with the kitchen. The project taught them that working together and being patient could lead to useful results.`,
+  title:"A Garden for Everyone",
+  text:
+  `When the school announced a garden project, the students were excited, although nobody knew exactly how much work it would require. Their teacher divided them into small groups. One group planned where to grow vegetables, while another collected old containers that could be used as plant pots. At first, the soil was dry and difficult to dig, so the students added compost and watered it carefully. They planted beans, tomatoes, and herbs because these plants could be used in the school kitchen. During the following weeks, the children took turns caring for the garden. Some plants grew quickly, but others needed more time and attention. One morning, they discovered that insects had eaten several leaves. Instead of using strong chemicals, the class researched safer ways to protect the plants. By the end of the term, they had harvested enough vegetables to share with the kitchen.`
 },
+
 {
-title:"The Journey to the Old Lighthouse",
-text:`During the school holiday, Emily visited a coastal village with her aunt. On a hill above the harbour stood an old lighthouse that had guided fishing boats for many years. Emily wanted to see it, so they followed a narrow path along the cliffs. Her aunt reminded her to stay away from the edge because the ground was uneven and the wind was strong. Halfway up the hill, they met a local guide who explained how lighthouse keepers once worked through the night to keep ships safe. When they reached the top, Emily could see small boats moving across the water and clouds gathering in the distance. They did not stay long because rain was approaching. On their way down, they helped another visitor find the correct path back to the village. Emily returned home with photographs and a new appreciation for the people who had protected sailors in difficult weather.`
+  title:"The Journey to the Old Lighthouse",
+  text:
+  `During the school holiday, Emily visited a coastal village with her aunt. On a hill above the harbour stood an old lighthouse that had guided fishing boats for many years. Emily wanted to see it, so they followed a narrow path along the cliffs. Her aunt reminded her to stay away from the edge because the ground was uneven and the wind was strong. Halfway up the hill, they met a local guide who explained how lighthouse keepers once worked through the night to keep ships safe. When they reached the top, Emily could see small boats moving across the water and clouds gathering in the distance. They did not stay long because rain was approaching.`
 },
+
 {
-title:"A Better Way to Travel",
-text:`The students in Class Five were asked to suggest ways to make their journey to school more environmentally friendly. At first, many children thought that there was little they could do because their families lived far away. Their teacher encouraged them to examine their daily routines before deciding on a solution. Some students discovered that they could share a car with neighbours who lived nearby. Others could walk safely with an adult or use the school bus instead of travelling in separate cars. The class also discussed why cycling was not suitable for every student or every road. After collecting information for two weeks, they created a poster showing the different choices available to families. They explained that no single solution would work for everyone, but small changes could reduce unnecessary traffic around the school. The headteacher displayed their poster near the entrance. The students felt proud that they had used research and teamwork to suggest practical improvements.`
+  title:"A Better Way to Travel",
+  text:
+  `The students in Class Five were asked to suggest ways to make their journey to school more environmentally friendly. At first, many children thought that there was little they could do because their families lived far away. Their teacher encouraged them to examine their daily routines before deciding on a solution. Some students discovered that they could share a car with neighbours who lived nearby. Others could walk safely with an adult or use the school bus instead of travelling in separate cars. The class also discussed why cycling was not suitable for every student or every road. After collecting information for two weeks, they created a poster showing the different choices available to families.`
 }
+
 ]
+
 };
+
+
+/* =========================================================
+   APP STATE
+   ========================================================= */
 
 let currentLevel = "starter";
 let history = [];
@@ -220,227 +788,602 @@ let index = 0;
 
 const $ = id => document.getElementById(id);
 
-function wordsIn(text) {
-  return text.trim().split(/\s+/).filter(Boolean);
+
+function wordsIn(text){
+
+  return text
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+
 }
 
-function getCurrent() {
+
+function getCurrent(){
+
   return history[index];
+
 }
 
-function makePassage(level) {
+
+function makePassage(level){
+
   const list = STORIES[level];
+
   const used = history
     .filter(p => p.level === level)
     .map(p => p.storyIndex);
 
-  let available = list.map((_, i) => i).filter(i => !used.includes(i));
-  if (!available.length) available = list.map((_, i) => i);
+  let available =
+    list
+      .map((_,i)=>i)
+      .filter(i => !used.includes(i));
 
-  const storyIndex = available[Math.floor(Math.random() * available.length)];
+  if(!available.length){
+
+    available = list.map((_,i)=>i);
+
+  }
+
+  const storyIndex =
+    available[
+      Math.floor(Math.random()*available.length)
+    ];
+
   const story = list[storyIndex];
 
   return {
+
     level,
     storyIndex,
-    title: story.title,
-    text: story.text,
-    incorrect: [],
-    submitted: false,
-    student: "",
-    total: wordsIn(story.text).length,
-    correct: 0,
-    accuracy: 100
+
+    title:story.title,
+    text:story.text,
+
+    incorrect:[],
+    submitted:false,
+
+    student:"",
+
+    total:wordsIn(story.text).length,
+
+    correct:0,
+
+    accuracy:100
+
   };
+
 }
 
-function getWordKey(i) {
-  return "w" + i;
+
+function getWordKey(i){
+
+  return "w"+i;
+
 }
 
-function renderStoryText(passage, target, clickable) {
-  target.innerHTML = "";
-  const parts = passage.text.match(/\S+|\s+/g) || [];
-  let wordIndex = 0;
 
-  parts.forEach(part => {
-    if (/^\s+$/.test(part)) {
-      target.appendChild(document.createTextNode(part));
+/* =========================================================
+   DISPLAY STORY
+   ========================================================= */
+
+function renderStoryText(passage,target,clickable){
+
+  target.innerHTML="";
+
+  const parts =
+    passage.text.match(/\S+|\s+/g) || [];
+
+  let wordIndex=0;
+
+  parts.forEach(part=>{
+
+    if(/^\s+$/.test(part)){
+
+      target.appendChild(
+        document.createTextNode(part)
+      );
+
       return;
+
     }
 
-    const span = document.createElement("span");
-    span.textContent = part;
+    const span =
+      document.createElement("span");
 
-    const key = getWordKey(wordIndex);
-    if (passage.incorrect.includes(key)) span.classList.add("incorrect");
+    span.textContent=part;
 
-    if (clickable && !passage.submitted) {
+    const key =
+      getWordKey(wordIndex);
+
+    if(
+      passage.incorrect.includes(key)
+    ){
+
+      span.classList.add("incorrect");
+
+    }
+
+    if(
+      clickable &&
+      !passage.submitted
+    ){
+
       span.classList.add("word");
-      span.title = "Tap to mark incorrect";
-      span.addEventListener("click", () => {
-        const pos = passage.incorrect.indexOf(key);
-        if (pos >= 0) passage.incorrect.splice(pos, 1);
-        else passage.incorrect.push(key);
-        updateDisplay();
-      });
+
+      span.title =
+        "Tap to mark incorrect";
+
+      span.addEventListener(
+        "click",
+        ()=>{
+
+          const pos =
+            passage.incorrect.indexOf(key);
+
+          if(pos>=0){
+
+            passage.incorrect.splice(pos,1);
+
+          }else{
+
+            passage.incorrect.push(key);
+
+          }
+
+          updateDisplay();
+
+        }
+      );
+
     }
 
     target.appendChild(span);
+
     wordIndex++;
+
   });
+
 }
 
-function updateDisplay() {
-  const p = getCurrent();
-  if (!p) return;
 
-  const level = LEVELS[p.level];
-  $("storyNumber").textContent = `Story ${index + 1}`;
-  $("levelBadge").textContent = `${level.icon} ${level.name} · ${level.cefr}`;
-  $("wordTarget").textContent = `Target: ${level.target}`;
-  $("storyTitle").textContent = p.title;
+/* =========================================================
+   UPDATE DISPLAY
+   ========================================================= */
 
-  renderStoryText(p, $("storyText"), true);
+function updateDisplay(){
 
-  const total = p.total;
-  const incorrect = p.incorrect.length;
-  const correct = Math.max(0, total - incorrect);
-  const accuracy = total ? Math.round(correct / total * 100) : 100;
+  const p=getCurrent();
 
-  $("totalWords").textContent = total;
-  $("correctWords").textContent = correct;
-  $("incorrectWords").textContent = incorrect;
-  $("accuracy").textContent = accuracy + "%";
+  if(!p)return;
 
-  $("backBtn").disabled = index === 0;
-  $("nextBtn").disabled = index >= history.length - 1;
+  const level=LEVELS[p.level];
 
-  if (p.submitted) showResult(p);
-  else $("resultCard").classList.add("hidden");
+  $("storyNumber").textContent =
+    `Story ${index+1}`;
+
+  $("levelBadge").textContent =
+    `${level.icon} ${level.name} · ${level.cefr}`;
+
+  $("wordTarget").textContent =
+    level.target;
+
+  $("storyTitle").textContent =
+    p.title;
+
+  renderStoryText(
+    p,
+    $("storyText"),
+    true
+  );
+
+  const total=p.total;
+
+  const incorrect=
+    p.incorrect.length;
+
+  const correct=
+    Math.max(0,total-incorrect);
+
+  const accuracy=
+    total
+      ? Math.round(correct/total*100)
+      : 100;
+
+  $("totalWords").textContent=total;
+
+  $("correctWords").textContent=correct;
+
+  $("incorrectWords").textContent=
+    incorrect;
+
+  $("accuracy").textContent=
+    accuracy+"%";
+
+  $("backBtn").disabled =
+    index===0;
+
+  $("nextBtn").disabled =
+    index>=history.length-1;
+
+  if(p.submitted){
+
+    showResult(p);
+
+  }else{
+
+    $("resultCard")
+      .classList
+      .add("hidden");
+
+  }
+
 }
 
-function showResult(p) {
-  const level = LEVELS[p.level];
-  $("resultCard").classList.remove("hidden");
-  $("resultName").textContent = "👤 " + p.student;
-  $("resultLevel").textContent = `${level.icon} ${level.name} · ${level.cefr}`;
-  $("rCorrect").textContent = p.correct;
-  $("rIncorrect").textContent = p.incorrect.length;
-  $("rTotal").textContent = p.total;
-  $("rAccuracy").textContent = p.accuracy + "%";
-  $("accuracyLarge").textContent = p.accuracy + "%";
+
+/* =========================================================
+   RESULT
+   ========================================================= */
+
+function showResult(p){
+
+  const level=LEVELS[p.level];
+
+  $("resultCard")
+    .classList
+    .remove("hidden");
+
+  $("resultName").textContent =
+    "👤 "+p.student;
+
+  $("resultLevel").textContent =
+    `${level.icon} ${level.name} · ${level.cefr}`;
+
+  $("rCorrect").textContent =
+    p.correct;
+
+  $("rIncorrect").textContent =
+    p.incorrect.length;
+
+  $("rTotal").textContent =
+    p.total;
+
+  $("rAccuracy").textContent =
+    p.accuracy+"%";
+
+  $("accuracyLarge").textContent =
+    p.accuracy+"%";
+
 
   $("resultMessage").textContent =
-    p.accuracy >= 90 ? "🌟 Excellent reading! Keep growing!" :
-    p.accuracy >= 75 ? "👏 Great job! Keep practising!" :
-    p.accuracy >= 60 ? "🌱 Good effort! Let's practise some more." :
-    "💪 Keep trying. Every reading helps you grow!";
 
-  renderStoryText(p, $("resultReading"), false);
+    p.accuracy>=90
+      ? "🌟 Excellent reading! Keep growing!"
 
-  const parts = p.text.match(/\S+/g) || [];
-  const incorrectWords = parts.filter((word, i) =>
-    p.incorrect.includes(getWordKey(i))
+    : p.accuracy>=75
+      ? "👏 Great job! Keep practising!"
+
+    : p.accuracy>=60
+      ? "🌱 Good effort! Let's practise some more."
+
+    : "💪 Keep trying. Every reading helps you grow!";
+
+
+  renderStoryText(
+    p,
+    $("resultReading"),
+    false
   );
 
-  $("practiceWords").innerHTML = incorrectWords.length
-    ? incorrectWords.map(w => {
-        const span = document.createElement("span");
-        span.textContent = w.replace(/[.,!?;:]+$/, "");
-        return span.outerHTML;
-      }).join("")
-    : "🎉 No words marked for practice. Well done!";
 
-  $("resultCard").scrollIntoView({behavior:"smooth", block:"start"});
+  const parts =
+    p.text.match(/\S+/g) || [];
+
+  const incorrectWords =
+    parts.filter(
+      (word,i)=>
+        p.incorrect.includes(
+          getWordKey(i)
+        )
+    );
+
+
+  $("practiceWords").innerHTML =
+    incorrectWords.length
+
+      ? incorrectWords
+          .map(w=>{
+
+            const span =
+              document.createElement("span");
+
+            span.textContent =
+              w.replace(/[.,!?;:]+$/,"");
+
+            return span.outerHTML;
+
+          })
+          .join("")
+
+      : "🎉 No words marked for practice. Well done!";
+
+
+  $("resultCard").scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+
 }
 
-function updateSession() {
-  const done = history.filter(p => p.submitted);
-  const total = done.reduce((sum, p) => sum + p.total, 0);
-  const correct = done.reduce((sum, p) => sum + p.correct, 0);
-  const avg = total ? Math.round(correct / total * 100) : 0;
+
+/* =========================================================
+   SESSION
+   ========================================================= */
+
+function updateSession(){
+
+  const done =
+    history.filter(
+      p=>p.submitted
+    );
+
+  const total =
+    done.reduce(
+      (sum,p)=>sum+p.total,
+      0
+    );
+
+  const correct =
+    done.reduce(
+      (sum,p)=>sum+p.correct,
+      0
+    );
+
+  const avg =
+    total
+      ? Math.round(correct/total*100)
+      : 0;
 
   $("sessionStats").textContent =
-    `${done.length} reading${done.length === 1 ? "" : "s"} submitted · ${total} words read · ${avg}% average accuracy`;
+
+    `${done.length} reading${
+      done.length===1?"":"s"
+    } submitted · ${
+      total
+    } words read · ${
+      avg
+    }% average accuracy`;
+
 }
 
-function newStory() {
-  history = history.slice(0, index + 1);
-  history.push(makePassage(currentLevel));
-  index = history.length - 1;
-  updateDisplay();
-  updateSession();
-}
 
-function submitReading() {
-  const name = $("studentName").value.trim();
-  if (!name) {
-    alert("Please enter the student's name before submitting.");
-    $("studentName").focus();
-    return;
-  }
+/* =========================================================
+   NEW STORY
+   ========================================================= */
 
-  const p = getCurrent();
-  p.student = name;
-  p.submitted = true;
-  p.correct = Math.max(0, p.total - p.incorrect.length);
-  p.accuracy = p.total ? Math.round(p.correct / p.total * 100) : 100;
+function newStory(){
 
-  updateDisplay();
-  showResult(p);
-  updateSession();
-}
+  history =
+    history.slice(0,index+1);
 
-document.querySelectorAll(".level").forEach(button => {
-  button.addEventListener("click", () => {
-    currentLevel = button.dataset.level;
-    document.querySelectorAll(".level").forEach(b =>
-      b.classList.toggle("active", b === button)
-    );
-    newStory();
-  });
-});
-
-$("submitBtn").addEventListener("click", submitReading);
-$("newBtn").addEventListener("click", newStory);
-
-$("nextBtn").addEventListener("click", () => {
-  if (index < history.length - 1) {
-    index++;
-    currentLevel = getCurrent().level;
-    syncLevelButtons();
-    updateDisplay();
-  } else {
-    newStory();
-  }
-});
-
-$("backBtn").addEventListener("click", () => {
-  if (index > 0) {
-    index--;
-    currentLevel = getCurrent().level;
-    syncLevelButtons();
-    updateDisplay();
-  }
-});
-
-function syncLevelButtons() {
-  document.querySelectorAll(".level").forEach(b =>
-    b.classList.toggle("active", b.dataset.level === currentLevel)
+  history.push(
+    makePassage(currentLevel)
   );
+
+  index=
+    history.length-1;
+
+  updateDisplay();
+
+  updateSession();
+
 }
 
-$("resetBtn").addEventListener("click", () => {
-  if (!confirm("Reset this reading session?")) return;
-  history = [];
-  index = 0;
-  currentLevel = "starter";
-  syncLevelButtons();
-  newStory();
-});
+
+/* =========================================================
+   SUBMIT
+   ========================================================= */
+
+function submitReading(){
+
+  const name =
+    $("studentName")
+      .value
+      .trim();
+
+  if(!name){
+
+    alert(
+      "Please enter the student's name before submitting."
+    );
+
+    $("studentName").focus();
+
+    return;
+
+  }
+
+  const p=getCurrent();
+
+  p.student=name;
+
+  p.submitted=true;
+
+  p.correct=
+    Math.max(
+      0,
+      p.total-p.incorrect.length
+    );
+
+  p.accuracy=
+    p.total
+      ? Math.round(
+          p.correct/p.total*100
+        )
+      : 100;
+
+  updateDisplay();
+
+  showResult(p);
+
+  updateSession();
+
+}
+
+
+/* =========================================================
+   LEVEL BUTTONS
+   ========================================================= */
+
+document
+  .querySelectorAll(".level")
+  .forEach(button=>{
+
+    button.addEventListener(
+      "click",
+      ()=>{
+
+        currentLevel=
+          button.dataset.level;
+
+        document
+          .querySelectorAll(".level")
+          .forEach(b=>
+            b.classList.toggle(
+              "active",
+              b===button
+            )
+          );
+
+        newStory();
+
+      }
+    );
+
+  });
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+$("submitBtn")
+  .addEventListener(
+    "click",
+    submitReading
+  );
+
+
+$("newBtn")
+  .addEventListener(
+    "click",
+    newStory
+  );
+
+
+$("nextBtn")
+  .addEventListener(
+    "click",
+    ()=>{
+
+      if(
+        index<
+        history.length-1
+      ){
+
+        index++;
+
+        currentLevel=
+          getCurrent().level;
+
+        syncLevelButtons();
+
+        updateDisplay();
+
+      }else{
+
+        newStory();
+
+      }
+
+    }
+  );
+
+
+$("backBtn")
+  .addEventListener(
+    "click",
+    ()=>{
+
+      if(index>0){
+
+        index--;
+
+        currentLevel=
+          getCurrent().level;
+
+        syncLevelButtons();
+
+        updateDisplay();
+
+      }
+
+    }
+  );
+
+
+function syncLevelButtons(){
+
+  document
+    .querySelectorAll(".level")
+    .forEach(b=>
+
+      b.classList.toggle(
+        "active",
+        b.dataset.level===currentLevel
+      )
+
+    );
+
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+$("resetBtn")
+  .addEventListener(
+    "click",
+    ()=>{
+
+      if(
+        !confirm(
+          "Reset this reading session?"
+        )
+      )return;
+
+      history=[];
+
+      index=0;
+
+      currentLevel="starter";
+
+      syncLevelButtons();
+
+      newStory();
+
+    }
+  );
+
+
+/* =========================================================
+   START
+   ========================================================= */
 
 newStory();
+
 </script>
+
 </body>
 </html>
