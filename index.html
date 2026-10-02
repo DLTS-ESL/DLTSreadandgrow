@@ -1,0 +1,2441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Read & Grow</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      background: linear-gradient(135deg, #eaf7ff, #f5fbff);
+      color: #24445c;
+      min-height: 100vh;
+    }
+
+    .app {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .top-header {
+      background: white;
+      border-radius: 24px;
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 8px 25px rgba(75, 150, 200, 0.12);
+      margin-bottom: 18px;
+      border: 2px solid #d9effc;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .plant-icon {
+      font-size: 48px;
+      line-height: 1;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      color: #378bc4;
+    }
+
+    .subtitle {
+      margin: 4px 0 0;
+      color: #6c8da4;
+      font-size: 15px;
+    }
+
+    .school-logo {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+      border-radius: 15px;
+      background: white;
+    }
+
+    .logo-fallback {
+      display: none;
+      font-size: 42px;
+    }
+
+    /* =========================
+       STUDENT NAME
+    ========================= */
+
+    .student-card {
+      background: white;
+      padding: 18px 20px;
+      border-radius: 20px;
+      border: 2px solid #d9effc;
+      box-shadow: 0 6px 18px rgba(75, 150, 200, 0.08);
+      margin-bottom: 18px;
+    }
+
+    .student-label {
+      font-weight: bold;
+      color: #347fac;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .student-input {
+      width: 100%;
+      padding: 13px 15px;
+      border: 2px solid #cfeaf8;
+      border-radius: 14px;
+      font-size: 17px;
+      font-family: inherit;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    .student-input:focus {
+      border-color: #69b7e6;
+      box-shadow: 0 0 0 4px rgba(105, 183, 230, 0.12);
+    }
+
+    /* =========================
+       LEVEL SELECTOR
+    ========================= */
+
+    .level-section {
+      background: white;
+      padding: 18px;
+      border-radius: 22px;
+      border: 2px solid #d9effc;
+      margin-bottom: 18px;
+      box-shadow: 0 6px 18px rgba(75, 150, 200, 0.08);
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 14px;
+      color: #347fac;
+    }
+
+    .level-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .level-btn {
+      border: none;
+      border-radius: 18px;
+      padding: 15px 10px;
+      cursor: pointer;
+      background: #eef8fd;
+      color: #39789e;
+      font-family: inherit;
+      font-size: 17px;
+      font-weight: bold;
+      transition: 0.2s;
+      border: 2px solid transparent;
+    }
+
+    .level-btn:hover {
+      transform: translateY(-2px);
+      background: #e2f4fc;
+    }
+
+    .level-btn.active {
+      background: #ccecff;
+      border-color: #68b5e3;
+      color: #2475a7;
+      box-shadow: 0 5px 12px rgba(67, 155, 205, 0.15);
+    }
+
+    .level-icon {
+      display: block;
+      font-size: 30px;
+      margin-bottom: 4px;
+    }
+
+    .level-mode {
+      display: block;
+      font-size: 12px;
+      font-weight: normal;
+      color: #7894a7;
+      margin-top: 3px;
+    }
+
+    /* =========================
+       STORY CARD
+    ========================= */
+
+    .story-card {
+      background: white;
+      border-radius: 25px;
+      padding: 25px;
+      border: 2px solid #d9effc;
+      box-shadow: 0 8px 25px rgba(75, 150, 200, 0.1);
+      margin-bottom: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .story-card::before {
+      content: "☁️";
+      position: absolute;
+      right: 18px;
+      top: 10px;
+      font-size: 35px;
+      opacity: 0.35;
+    }
+
+    .story-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .story-number {
+      background: #e9f7ff;
+      color: #3989b9;
+      border-radius: 20px;
+      padding: 7px 13px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .level-label {
+      background: #dff4ff;
+      color: #2879a8;
+      border-radius: 20px;
+      padding: 7px 14px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .story-text {
+      font-size: 23px;
+      line-height: 2;
+      color: #294d63;
+      position: relative;
+      z-index: 1;
+    }
+
+    .sentence {
+      margin-bottom: 10px;
+    }
+
+    .word {
+      display: inline-block;
+      cursor: pointer;
+      border-radius: 7px;
+      padding: 1px 3px;
+      transition: 0.15s;
+    }
+
+    .word:hover {
+      background: #eef8fd;
+    }
+
+    .word.incorrect {
+      color: #d73535;
+      background: #ffe4e4;
+      text-decoration: underline wavy #d73535;
+      font-weight: bold;
+    }
+
+    /* =========================
+       INSTRUCTION
+    ========================= */
+
+    .instruction {
+      background: #f0faff;
+      border: 2px dashed #a9d9ef;
+      padding: 14px 18px;
+      border-radius: 17px;
+      margin-top: 18px;
+      color: #54788e;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    /* =========================
+       SUBMIT
+    ========================= */
+
+    .submit-area {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .submit-btn {
+      border: none;
+      background: #4ca7d8;
+      color: white;
+      padding: 15px 30px;
+      border-radius: 18px;
+      font-family: inherit;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(58, 145, 195, 0.2);
+      transition: 0.2s;
+    }
+
+    .submit-btn:hover {
+      background: #358fbe;
+      transform: translateY(-2px);
+    }
+
+    /* =========================
+       LIVE SCORE
+    ========================= */
+
+    .score-card {
+      background: white;
+      border-radius: 22px;
+      padding: 20px;
+      border: 2px solid #d9effc;
+      margin-bottom: 18px;
+      box-shadow: 0 6px 18px rgba(75, 150, 200, 0.08);
+    }
+
+    .score-title {
+      text-align: center;
+      color: #3986b1;
+      font-size: 17px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .score-box {
+      background: #f2faff;
+      border-radius: 15px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .score-number {
+      font-size: 25px;
+      font-weight: bold;
+      color: #378bc4;
+    }
+
+    .score-label {
+      font-size: 12px;
+      color: #7894a7;
+      margin-top: 3px;
+    }
+
+    /* =========================
+       RESULT CARD
+    ========================= */
+
+    .result-card {
+      background: white;
+      border-radius: 25px;
+      padding: 24px;
+      border: 3px solid #8ed0ee;
+      box-shadow: 0 10px 30px rgba(55, 145, 195, 0.14);
+      margin-bottom: 20px;
+    }
+
+    .result-card.hidden {
+      display: none;
+    }
+
+    .result-title {
+      text-align: center;
+      color: #3488b8;
+      font-size: 25px;
+      margin-bottom: 18px;
+    }
+
+    .result-student {
+      background: #edf9ff;
+      border-radius: 16px;
+      padding: 13px;
+      text-align: center;
+      font-size: 19px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .result-level {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .result-badge {
+      display: inline-block;
+      background: #d9f2ff;
+      color: #2678a7;
+      border-radius: 20px;
+      padding: 8px 18px;
+      font-weight: bold;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .result-box {
+      background: #f5fbff;
+      border-radius: 17px;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .result-number {
+      font-size: 28px;
+      font-weight: bold;
+      color: #348bc0;
+    }
+
+    .result-label {
+      color: #7894a7;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .accuracy-box {
+      background: #e7f7ff;
+      border-radius: 18px;
+      padding: 18px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .accuracy-label {
+      font-size: 14px;
+      color: #63869a;
+    }
+
+    .accuracy-value {
+      font-size: 42px;
+      font-weight: bold;
+      color: #2f8abd;
+      margin-top: 3px;
+    }
+
+    .result-message {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: #397b9f;
+      margin-bottom: 20px;
+    }
+
+    .reading-result-title,
+    .practice-title {
+      color: #397fa6;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .result-reading {
+      background: #f8fcff;
+      border: 2px solid #e0f1fa;
+      border-radius: 18px;
+      padding: 18px;
+      font-size: 21px;
+      line-height: 1.9;
+      margin-bottom: 18px;
+    }
+
+    .result-reading .incorrect {
+      color: #d73535;
+      background: #ffe4e4;
+      padding: 1px 4px;
+      border-radius: 6px;
+      text-decoration: underline wavy #d73535;
+      font-weight: bold;
+    }
+
+    .practice-box {
+      background: #fff8ed;
+      border: 2px solid #f5dfb7;
+      border-radius: 17px;
+      padding: 15px;
+      color: #805f32;
+      line-height: 1.8;
+    }
+
+    .practice-word {
+      display: inline-block;
+      background: white;
+      border-radius: 12px;
+      padding: 5px 10px;
+      margin: 3px;
+      font-weight: bold;
+    }
+
+    /* =========================
+       NAVIGATION
+    ========================= */
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr 1fr;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .control-btn {
+      border: none;
+      padding: 13px;
+      border-radius: 16px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      background: white;
+      color: #397b9f;
+      border: 2px solid #d4edf9;
+      transition: 0.2s;
+    }
+
+    .control-btn:hover {
+      background: #eef9ff;
+      transform: translateY(-1px);
+    }
+
+    .control-btn.primary {
+      background: #dff3ff;
+      border-color: #9ed5ee;
+    }
+
+    /* =========================
+       SESSION
+    ========================= */
+
+    .session-card {
+      background: white;
+      border-radius: 20px;
+      padding: 18px;
+      border: 2px solid #d9effc;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    .session-title {
+      color: #3986b1;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .session-stats {
+      color: #6b8ca0;
+      font-size: 14px;
+    }
+
+    /* =========================
+       RESET
+    ========================= */
+
+    .reset-area {
+      text-align: center;
+      padding-bottom: 20px;
+    }
+
+    .reset-btn {
+      border: none;
+      background: transparent;
+      color: #91a8b7;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 13px;
+      text-decoration: underline;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 700px) {
+
+      .app {
+        padding: 12px;
+      }
+
+      .top-header {
+        padding: 16px;
+      }
+
+      h1 {
+        font-size: 27px;
+      }
+
+      .plant-icon {
+        font-size: 38px;
+      }
+
+      .school-logo {
+        width: 65px;
+        height: 65px;
+      }
+
+      .level-buttons {
+        grid-template-columns: 1fr;
+      }
+
+      .score-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .story-card {
+        padding: 18px;
+      }
+
+      .story-text {
+        font-size: 20px;
+        line-height: 1.9;
+      }
+
+      .result-reading {
+        font-size: 19px;
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+  <div class="app">
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+
+    <header class="top-header">
+
+      <div class="brand">
+
+        <div class="plant-icon">
+          🌱
+        </div>
+
+        <div>
+          <h1>Read & Grow</h1>
+          <p class="subtitle">
+            Read • Grow • Improve
+          </p>
+        </div>
+
+      </div>
+
+
+      <!-- SCHOOL LOGO -->
+
+      <div>
+
+        <img
+          id="schoolLogo"
+          class="school-logo"
+          src="https://drive.google.com/thumbnail?id=1pmEJ97CNYvvMj8oA8wob30rH8OiHUe-5&sz=w400"
+          alt="School Logo"
+          onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='block';"
+        >
+
+        <div id="logoFallback" class="logo-fallback">
+          🏫
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- =========================
+         STUDENT NAME
+    ========================= -->
+
+    <section class="student-card">
+
+      <label class="student-label" for="studentName">
+        👤 Student Name
+      </label>
+
+      <input
+        id="studentName"
+        class="student-input"
+        type="text"
+        placeholder="Enter student's name"
+        autocomplete="off"
+      >
+
+    </section>
+
+
+    <!-- =========================
+         LEVEL SELECTOR
+    ========================= -->
+
+    <section class="level-section">
+
+      <div class="section-title">
+        🌟 Choose Reading Level
+      </div>
+
+      <div class="level-buttons">
+
+        <button
+          class="level-btn active"
+          data-level="beginner"
+        >
+          <span class="level-icon">🌱</span>
+          Starter
+          <span class="level-mode">
+            Beginner
+          </span>
+        </button>
+
+
+        <button
+          class="level-btn"
+          data-level="medium"
+        >
+          <span class="level-icon">🌿</span>
+          Mover
+          <span class="level-mode">
+            Medium
+          </span>
+        </button>
+
+
+        <button
+          class="level-btn"
+          data-level="hard"
+        >
+          <span class="level-icon">🌳</span>
+          Flyer
+          <span class="level-mode">
+            Hard
+          </span>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         STORY
+    ========================= -->
+
+    <section class="story-card">
+
+      <div class="story-header">
+
+        <div
+          id="storyNumber"
+          class="story-number"
+        >
+          Story 1
+        </div>
+
+        <div
+          id="levelLabel"
+          class="level-label"
+        >
+          🌱 Starter
+        </div>
+
+      </div>
+
+
+      <div
+        id="storyText"
+        class="story-text"
+      >
+      </div>
+
+
+      <div class="instruction">
+
+        💡 Listen to the student read.
+        <br>
+
+        Tap a word if the student reads it incorrectly.
+        Tap it again to mark it correct.
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SUBMIT
+    ========================= -->
+
+    <div class="submit-area">
+
+      <button
+        id="submitBtn"
+        class="submit-btn"
+      >
+        📚 Submit Reading
+      </button>
+
+    </div>
+
+
+    <!-- =========================
+         LIVE SCORE
+    ========================= -->
+
+    <section class="score-card">
+
+      <div class="score-title">
+        ✏️ Current Reading Check
+      </div>
+
+
+      <div class="score-grid">
+
+        <div class="score-box">
+
+          <div
+            id="totalWords"
+            class="score-number"
+          >
+            0
+          </div>
+
+          <div class="score-label">
+            Total Words
+          </div>
+
+        </div>
+
+
+        <div class="score-box">
+
+          <div
+            id="correctWords"
+            class="score-number"
+          >
+            0
+          </div>
+
+          <div class="score-label">
+            Correct
+          </div>
+
+        </div>
+
+
+        <div class="score-box">
+
+          <div
+            id="incorrectWords"
+            class="score-number"
+          >
+            0
+          </div>
+
+          <div class="score-label">
+            Incorrect
+          </div>
+
+        </div>
+
+
+        <div class="score-box">
+
+          <div
+            id="accuracy"
+            class="score-number"
+          >
+            100%
+          </div>
+
+          <div class="score-label">
+            Accuracy
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         RESULT
+    ========================= -->
+
+    <section
+      id="resultCard"
+      class="result-card hidden"
+    >
+
+      <div class="result-title">
+        🎉 Reading Result
+      </div>
+
+
+      <div
+        id="resultStudentName"
+        class="result-student"
+      >
+      </div>
+
+
+      <div class="result-level">
+
+        <span
+          id="resultLevel"
+          class="result-badge"
+        >
+        </span>
+
+      </div>
+
+
+      <div class="result-grid">
+
+        <div class="result-box">
+
+          <div
+            id="resultCorrect"
+            class="result-number"
+          >
+            0
+          </div>
+
+          <div class="result-label">
+            Correct Words
+          </div>
+
+        </div>
+
+
+        <div class="result-box">
+
+          <div
+            id="resultIncorrect"
+            class="result-number"
+          >
+            0
+          </div>
+
+          <div class="result-label">
+            Needs Practice
+          </div>
+
+        </div>
+
+
+        <div class="result-box">
+
+          <div
+            id="resultTotal"
+            class="result-number"
+          >
+            0
+          </div>
+
+          <div class="result-label">
+            Total Words
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="accuracy-box">
+
+        <div class="accuracy-label">
+          Reading Accuracy
+        </div>
+
+        <div
+          id="resultAccuracy"
+          class="accuracy-value"
+        >
+          100%
+        </div>
+
+      </div>
+
+
+      <div
+        id="resultMessage"
+        class="result-message"
+      >
+      </div>
+
+
+      <!-- READING -->
+
+      <div class="reading-result-title">
+        📖 Student's Reading
+      </div>
+
+      <div
+        id="resultReading"
+        class="result-reading"
+      >
+      </div>
+
+
+      <!-- PRACTICE -->
+
+      <div class="practice-title">
+        🌱 Words to Practise
+      </div>
+
+      <div
+        id="resultPractice"
+        class="practice-box"
+      >
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         NAVIGATION
+    ========================= -->
+
+    <div class="controls">
+
+      <button
+        id="backBtn"
+        class="control-btn"
+      >
+        ← Previous
+      </button>
+
+
+      <button
+        id="newStoryBtn"
+        class="control-btn primary"
+      >
+        ✨ New Story
+      </button>
+
+
+      <button
+        id="nextBtn"
+        class="control-btn"
+      >
+        Next →
+      </button>
+
+    </div>
+
+
+    <!-- =========================
+         SESSION PROGRESS
+    ========================= -->
+
+    <section class="session-card">
+
+      <div class="session-title">
+        🌟 Session Progress
+      </div>
+
+      <div
+        id="sessionStats"
+        class="session-stats"
+      >
+        0 readings submitted • 0 words read • 0% average accuracy
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         RESET
+    ========================= -->
+
+    <div class="reset-area">
+
+      <button
+        id="resetBtn"
+        class="reset-btn"
+      >
+        Reset Session
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    /* =====================================================
+       READING DATABASE
+    ===================================================== */
+
+    const beginnerWords = {
+
+      sight: [
+        "a", "the", "is", "my", "I",
+        "can", "see", "go", "to",
+        "and", "in", "on", "it",
+        "we", "he", "she", "like",
+        "look", "here", "this"
+      ],
+
+      cvc: [
+        "cat", "dog", "sun", "run",
+        "big", "red", "hot", "bed",
+        "pig", "map", "hat", "bag",
+        "man", "sit", "top", "hop",
+        "fox", "box", "jam", "fun"
+      ],
+
+      blend: [
+        "stop", "step", "flag",
+        "frog", "swim", "spin",
+        " clap", "tree", "blue",
+        "black", "green", "play"
+      ]
+
+    };
+
+
+    const mediumWords = {
+
+      sight: [
+        "because", "before", "after",
+        "where", "there", "their",
+        "could", "would", "should",
+        "little", "around", "every",
+        "again", "always", "together"
+      ],
+
+      cvc: [
+        "rabbit", "kitten", "sunny",
+        "garden", "picnic", "basket",
+        "happy", "yellow", "window",
+        "flower", "pocket", "summer"
+      ],
+
+      blend: [
+        "bright", "clean", "cloud",
+        "green", "street", "spring",
+        "small", "friend", "plant",
+        "school", "three", "brown"
+      ]
+
+    };
+
+
+    const hardWords = {
+
+      sight: [
+        "although", "different",
+        "important", "beautiful",
+        "remember", "something",
+        "another", "together",
+        "sometimes", "interesting"
+      ],
+
+      longer: [
+        "adventure", "wonderful",
+        "carefully", "playground",
+        "butterfly", "beautiful",
+        "excited", "sunshine",
+        "rainbow", "friendly",
+        "imagination", "discover"
+      ],
+
+      blend: [
+        "straight", "through",
+        "brightly", "children",
+        "strong", "scramble",
+        "splendid", "springtime",
+        "grandmother", "breakfast"
+      ]
+
+    };
+
+
+    /* =====================================================
+       STORY TEMPLATES
+    ===================================================== */
+
+    const beginnerStories = [
+
+      "The {animal} is {adjective}. It can {verb}. The {animal} likes the {object}.",
+
+      "I see a {animal}. The {animal} is {adjective}. It can {verb} in the {place}.",
+
+      "The {animal} has a {object}. It is {adjective}. We can {verb} together.",
+
+      "A {animal} can {verb}. It has a {adjective} {object}. I like the {animal}.",
+
+      "The {animal} is in the {place}. It can {verb}. It looks {adjective}."
+
+    ];
+
+
+    const mediumStories = [
+
+      "One day, the {animal} went to the {place}. It saw a {adjective} {object} and decided to {verb}.",
+
+      "The {animal} and its friend went to the {place}. They found a {adjective} {object} and had a fun time.",
+
+      "In the morning, the {animal} saw a {object}. It was very {adjective}, so the {animal} decided to {verb}.",
+
+      "The {animal} wanted to explore the {place}. Along the way, it found a {adjective} {object}.",
+
+      "After school, the {animal} went to the {place}. It saw something {adjective} and decided to {verb}."
+
+    ];
+
+
+    const hardStories = [
+
+      "During the weekend, the {animal} went on an exciting adventure to the {place}. Along the way, it discovered a {adjective} {object} and carefully decided to {verb}.",
+
+      "Although the weather was {adjective}, the {animal} continued its journey toward the {place}. It hoped to discover something interesting along the way.",
+
+      "The {animal} had always wanted to explore the {place}. One morning, it packed a {object} and prepared for a wonderful adventure.",
+
+      "While exploring the {place}, the {animal} suddenly noticed a {adjective} {object}. It stopped carefully and wondered what it could {verb}.",
+
+      "After a long day of exploring, the {animal} returned from the {place}. It was tired but happy because it had discovered something wonderful."
+
+    ];
+
+
+    /* =====================================================
+       WORD BANKS
+    ===================================================== */
+
+    const names = [
+      "Sam",
+      "Ben",
+      "Mia",
+      "Lily",
+      "Tom",
+      "Max",
+      "Anna",
+      "Leo"
+    ];
+
+
+    const animals = [
+      "cat",
+      "dog",
+      "rabbit",
+      "fox",
+      "frog",
+      "bird",
+      "bear",
+      "monkey",
+      "panda"
+    ];
+
+
+    const places = [
+      "park",
+      "school",
+      "garden",
+      "forest",
+      "playground",
+      "farm",
+      "beach",
+      "library"
+    ];
+
+
+    const objects = [
+      "ball",
+      "book",
+      "bag",
+      "hat",
+      "flower",
+      "toy",
+      "map",
+      "box",
+      "kite"
+    ];
+
+
+    const verbs = [
+      "run",
+      "jump",
+      "play",
+      "walk",
+      "look",
+      "sing",
+      "swim",
+      "clap",
+      "explore",
+      "help"
+    ];
+
+
+    const adjectives = [
+      "happy",
+      "big",
+      "small",
+      "red",
+      "blue",
+      "green",
+      "bright",
+      "fun",
+      "kind",
+      "friendly",
+      "excited",
+      "beautiful"
+    ];
+
+
+    /* =====================================================
+       LEVEL INFORMATION
+    ===================================================== */
+
+    const LEVEL_INFO = {
+
+      beginner: {
+        mode: "Beginner",
+        cefr: "Starter",
+        icon: "🌱"
+      },
+
+      medium: {
+        mode: "Medium",
+        cefr: "Mover",
+        icon: "🌿"
+      },
+
+      hard: {
+        mode: "Hard",
+        cefr: "Flyer",
+        icon: "🌳"
+      }
+
+    };
+
+
+    /* =====================================================
+       APP STATE
+    ===================================================== */
+
+    let currentLevel = "beginner";
+
+    let passageHistory = [];
+
+    let currentPassageIndex = 0;
+
+
+    /* =====================================================
+       HELPERS
+    ===================================================== */
+
+    function randomItem(array) {
+
+      return array[
+        Math.floor(Math.random() * array.length)
+      ];
+
+    }
+
+
+    function capitalizeFirst(text) {
+
+      return text.charAt(0).toUpperCase() + text.slice(1);
+
+    }
+
+
+    /* =====================================================
+       GENERATE STORY
+    ===================================================== */
+
+    function generateStory(level) {
+
+      let templates;
+
+      if (level === "beginner") {
+
+        templates = beginnerStories;
+
+      } else if (level === "medium") {
+
+        templates = mediumStories;
+
+      } else {
+
+        templates = hardStories;
+
+      }
+
+
+      let story = randomItem(templates);
+
+
+      story = story.replace(
+        /\{animal\}/g,
+        randomItem(animals)
+      );
+
+
+      story = story.replace(
+        /\{place\}/g,
+        randomItem(places)
+      );
+
+
+      story = story.replace(
+        /\{object\}/g,
+        randomItem(objects)
+      );
+
+
+      story = story.replace(
+        /\{verb\}/g,
+        randomItem(verbs)
+      );
+
+
+      story = story.replace(
+        /\{adjective\}/g,
+        randomItem(adjectives)
+      );
+
+
+      return story;
+
+    }
+
+
+    /* =====================================================
+       CREATE PASSAGE
+    ===================================================== */
+
+    function createPassage(level) {
+
+      const text = generateStory(level);
+
+
+      const sentences = text
+        .match(/[^.!?]+[.!?]+/g) || [text];
+
+
+      return {
+
+        level: level,
+
+        sentences: sentences,
+
+        incorrect: [],
+
+        submitted: false,
+
+        studentName: "",
+
+        accuracy: 100,
+
+        total: 0,
+
+        correct: 0,
+
+        incorrectCount: 0
+
+      };
+
+    }
+
+
+    /* =====================================================
+       WORD PARSER
+    ===================================================== */
+
+    function getWordParts(sentence) {
+
+      return sentence.split(/(\s+)/);
+
+    }
+
+
+    function cleanWord(word) {
+
+      return word
+        .replace(/^[.,!?;:"'()]+/, "")
+        .replace(/[.,!?;:"'()]+$/, "");
+
+    }
+
+
+    /* =====================================================
+       DISPLAY PASSAGE
+    ===================================================== */
+
+    function displayPassage() {
+
+      const passage =
+        passageHistory[currentPassageIndex];
+
+
+      if (!passage) return;
+
+
+      const storyText =
+        document.getElementById("storyText");
+
+
+      storyText.innerHTML = "";
+
+
+      passage.sentences.forEach(
+        (sentence, sentenceIndex) => {
+
+          const sentenceDiv =
+            document.createElement("div");
+
+          sentenceDiv.className =
+            "sentence";
+
+
+          const parts =
+            getWordParts(sentence);
+
+
+          let wordIndex = 0;
+
+
+          parts.forEach(part => {
+
+            if (/^\s+$/.test(part)) {
+
+              sentenceDiv.appendChild(
+                document.createTextNode(part)
+              );
+
+              return;
+
+            }
+
+
+            const word =
+              cleanWord(part);
+
+
+            const span =
+              document.createElement("span");
+
+
+            span.className = "word";
+
+
+            span.textContent = part;
+
+
+            const key =
+              `${sentenceIndex}-${wordIndex}`;
+
+
+            span.dataset.key = key;
+
+
+            span.onclick = function() {
+
+              toggleWord(key);
+
+            };
+
+
+            if (
+              passage.incorrect.includes(key)
+            ) {
+
+              span.classList.add("incorrect");
+
+            }
+
+
+            sentenceDiv.appendChild(span);
+
+
+            wordIndex++;
+
+          });
+
+
+          storyText.appendChild(sentenceDiv);
+
+        }
+      );
+
+
+      updateStoryNumber();
+
+      updateScore();
+
+      updateNavigation();
+
+
+      if (passage.submitted) {
+
+        showResult(passage);
+
+      } else {
+
+        hideResult();
+
+      }
+
+    }
+
+
+    /* =====================================================
+       TOGGLE WORD
+    ===================================================== */
+
+    function toggleWord(key) {
+
+      const passage =
+        passageHistory[currentPassageIndex];
+
+
+      if (passage.submitted) {
+
+        return;
+
+      }
+
+
+      const index =
+        passage.incorrect.indexOf(key);
+
+
+      if (index === -1) {
+
+        passage.incorrect.push(key);
+
+      } else {
+
+        passage.incorrect.splice(index, 1);
+
+      }
+
+
+      displayPassage();
+
+    }
+
+
+    /* =====================================================
+       COUNT WORDS
+    ===================================================== */
+
+    function countWords(passage) {
+
+      let total = 0;
+
+
+      passage.sentences.forEach(sentence => {
+
+        total += sentence
+          .trim()
+          .split(/\s+/)
+          .filter(Boolean)
+          .length;
+
+      });
+
+
+      return total;
+
+    }
+
+
+    /* =====================================================
+       GET INCORRECT WORDS
+    ===================================================== */
+
+    function getIncorrectWords(passage) {
+
+      const result = [];
+
+
+      passage.sentences.forEach(
+        (sentence, sentenceIndex) => {
+
+          const words =
+            sentence
+              .trim()
+              .split(/\s+/)
+              .filter(Boolean);
+
+
+          words.forEach(
+            (word, wordIndex) => {
+
+              const key =
+                `${sentenceIndex}-${wordIndex}`;
+
+
+              if (
+                passage.incorrect.includes(key)
+              ) {
+
+                result.push(
+                  cleanWord(word)
+                );
+
+              }
+
+            }
+          );
+
+        }
+      );
+
+
+      return result;
+
+    }
+
+
+    /* =====================================================
+       UPDATE SCORE
+    ===================================================== */
+
+    function updateScore() {
+
+      const passage =
+        passageHistory[currentPassageIndex];
+
+
+      if (!passage) return;
+
+
+      const total =
+        countWords(passage);
+
+
+      const incorrect =
+        passage.incorrect.length;
+
+
+      const correct =
+        Math.max(0, total - incorrect);
+
+
+      const accuracy =
+        total === 0
+          ? 100
+          : Math.round(
+              (correct / total) * 100
+            );
+
+
+      document.getElementById(
+        "totalWords"
+      ).textContent = total;
+
+
+      document.getElementById(
+        "correctWords"
+      ).textContent = correct;
+
+
+      document.getElementById(
+        "incorrectWords"
+      ).textContent = incorrect;
+
+
+      document.getElementById(
+        "accuracy"
+      ).textContent = accuracy + "%";
+
+    }
+
+
+    /* =====================================================
+       UPDATE STORY NUMBER
+    ===================================================== */
+
+    function updateStoryNumber() {
+
+      const passage =
+        passageHistory[currentPassageIndex];
+
+
+      if (!passage) return;
+
+
+      const info =
+        LEVEL_INFO[passage.level];
+
+
+      document.getElementById(
+        "storyNumber"
+      ).textContent =
+        `Story ${currentPassageIndex + 1}`;
+
+
+      document.getElementById(
+        "levelLabel"
+      ).textContent =
+        `${info.icon} ${info.cefr}`;
+
+    }
+
+
+    /* =====================================================
+       UPDATE NAVIGATION
+    ===================================================== */
+
+    function updateNavigation() {
+
+      document.getElementById(
+        "backBtn"
+      ).disabled =
+        currentPassageIndex === 0;
+
+
+      document.getElementById(
+        "nextBtn"
+      ).disabled =
+        currentPassageIndex >=
+        passageHistory.length - 1;
+
+    }
+
+
+    /* =====================================================
+       SUBMIT READING
+    ===================================================== */
+
+    function submitReading() {
+
+      const nameInput =
+        document.getElementById(
+          "studentName"
+        );
+
+
+      const studentName =
+        nameInput.value.trim();
+
+
+      if (!studentName) {
+
+        alert(
+          "Please enter the student's name before submitting."
+        );
+
+        nameInput.focus();
+
+        return;
+
+      }
+
+
+      const passage =
+        passageHistory[currentPassageIndex];
+
+
+      const total =
+        countWords(passage);
+
+
+      const incorrect =
+        passage.incorrect.length;
+
+
+      const correct =
+        Math.max(0, total - incorrect);
+
+
+      const accuracy =
+        total === 0
+          ? 100
+          : Math.round(
+              (correct / total) * 100
+            );
+
+
+      passage.submitted = true;
+
+      passage.studentName =
+        studentName;
+
+      passage.total =
+        total;
+
+      passage.correct =
+        correct;
+
+      passage.incorrectCount =
+        incorrect;
+
+      passage.accuracy =
+        accuracy;
+
+
+      showResult(passage);
+
+      updateSessionStats();
+
+    }
+
+
+    /* =====================================================
+       SHOW RESULT
+    ===================================================== */
+
+    function showResult(passage) {
+
+      const resultCard =
+        document.getElementById(
+          "resultCard"
+        );
+
+
+      const info =
+        LEVEL_INFO[passage.level];
+
+
+      const total =
+        passage.submitted
+          ? passage.total
+          : countWords(passage);
+
+
+      const incorrect =
+        passage.submitted
+          ? passage.incorrectCount
+          : passage.incorrect.length;
+
+
+      const correct =
+        passage.submitted
+          ? passage.correct
+          : total - incorrect;
+
+
+      const accuracy =
+        passage.submitted
+          ? passage.accuracy
+          : total === 0
+            ? 100
+            : Math.round(
+                (correct / total) * 100
+              );
+
+
+      document.getElementById(
+        "resultStudentName"
+      ).textContent =
+        "👤 " +
+        (passage.studentName || "Student");
+
+
+      document.getElementById(
+        "resultLevel"
+      ).textContent =
+        `${info.icon} ${info.cefr} Level — ${info.mode}`;
+
+
+      document.getElementById(
+        "resultCorrect"
+      ).textContent =
+        correct;
+
+
+      document.getElementById(
+        "resultIncorrect"
+      ).textContent =
+        incorrect;
+
+
+      document.getElementById(
+        "resultTotal"
+      ).textContent =
+        total;
+
+
+      document.getElementById(
+        "resultAccuracy"
+      ).textContent =
+        accuracy + "%";
+
+
+      let message;
+
+
+      if (accuracy >= 90) {
+
+        message =
+          "🌟 Excellent reading! Keep growing!";
+
+      } else if (accuracy >= 75) {
+
+        message =
+          "👏 Great job! Keep practising!";
+
+      } else if (accuracy >= 60) {
+
+        message =
+          "🌱 Good effort! A little more practice will help.";
+
+      } else {
+
+        message =
+          "💪 Keep practising! You are making progress.";
+
+      }
+
+
+      document.getElementById(
+        "resultMessage"
+      ).textContent =
+        message;
+
+
+      renderResultReading(passage);
+
+
+      const incorrectWords =
+        getIncorrectWords(passage);
+
+
+      const practiceBox =
+        document.getElementById(
+          "resultPractice"
+        );
+
+
+      if (incorrectWords.length === 0) {
+
+        practiceBox.innerHTML =
+          "🎉 No words to practise. Great reading!";
+
+      } else {
+
+        practiceBox.innerHTML =
+          incorrectWords
+            .map(
+              word =>
+                `<span class="practice-word">${word}</span>`
+            )
+            .join("");
+
+      }
+
+
+      resultCard.classList.remove(
+        "hidden"
+      );
+
+
+      resultCard.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+    }
+
+
+    /* =====================================================
+       RENDER RESULT READING
+    ===================================================== */
+
+    function renderResultReading(passage) {
+
+      const container =
+        document.getElementById(
+          "resultReading"
+        );
+
+
+      container.innerHTML = "";
+
+
+      passage.sentences.forEach(
+        (sentence, sentenceIndex) => {
+
+          const sentenceDiv =
+            document.createElement("div");
+
+
+          const parts =
+            getWordParts(sentence);
+
+
+          let wordIndex = 0;
+
+
+          parts.forEach(part => {
+
+            if (/^\s+$/.test(part)) {
+
+              sentenceDiv.appendChild(
+                document.createTextNode(part)
+              );
+
+              return;
+
+            }
+
+
+            const span =
+              document.createElement("span");
+
+
+            span.textContent = part;
+
+
+            const key =
+              `${sentenceIndex}-${wordIndex}`;
+
+
+            if (
+              passage.incorrect.includes(key)
+            ) {
+
+              span.className =
+                "incorrect";
+
+            }
+
+
+            sentenceDiv.appendChild(span);
+
+
+            wordIndex++;
+
+          });
+
+
+          container.appendChild(
+            sentenceDiv
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       HIDE RESULT
+    ===================================================== */
+
+    function hideResult() {
+
+      document
+        .getElementById("resultCard")
+        .classList.add("hidden");
+
+    }
+
+
+    /* =====================================================
+       SESSION STATISTICS
+    ===================================================== */
+
+    function updateSessionStats() {
+
+      const completed =
+        passageHistory.filter(
+          passage => passage.submitted
+        );
+
+
+      let totalWords = 0;
+
+      let totalCorrect = 0;
+
+
+      completed.forEach(passage => {
+
+        totalWords +=
+          passage.total;
+
+        totalCorrect +=
+          passage.correct;
+
+      });
+
+
+      const averageAccuracy =
+        totalWords === 0
+          ? 0
+          : Math.round(
+              (totalCorrect / totalWords) *
+              100
+            );
+
+
+      document.getElementById(
+        "sessionStats"
+      ).textContent =
+        `${completed.length} reading${completed.length === 1 ? "" : "s"} submitted • ` +
+        `${totalWords} words read • ` +
+        `${averageAccuracy}% average accuracy`;
+
+    }
+
+
+    /* =====================================================
+       NEW STORY
+    ===================================================== */
+
+    function newStory() {
+
+      /*
+       Remove any future stories if the
+       user creates a new one after going back.
+      */
+
+      passageHistory =
+        passageHistory.slice(
+          0,
+          currentPassageIndex + 1
+        );
+
+
+      passageHistory.push(
+        createPassage(currentLevel)
+      );
+
+
+      currentPassageIndex =
+        passageHistory.length - 1;
+
+
+      displayPassage();
+
+      updateSessionStats();
+
+    }
+
+
+    /* =====================================================
+       NEXT STORY
+    ===================================================== */
+
+    function nextStory() {
+
+      if (
+        currentPassageIndex <
+        passageHistory.length - 1
+      ) {
+
+        currentPassageIndex++;
+
+        displayPassage();
+
+      } else {
+
+        newStory();
+
+      }
+
+    }
+
+
+    /* =====================================================
+       PREVIOUS STORY
+    ===================================================== */
+
+    function previousStory() {
+
+      if (
+        currentPassageIndex > 0
+      ) {
+
+        currentPassageIndex--;
+
+        const passage =
+          passageHistory[
+            currentPassageIndex
+          ];
+
+
+        currentLevel =
+          passage.level;
+
+
+        updateLevelButtons();
+
+        displayPassage();
+
+      }
+
+    }
+
+
+    /* =====================================================
+       LEVEL BUTTONS
+    ===================================================== */
+
+    function updateLevelButtons() {
+
+      document
+        .querySelectorAll(".level-btn")
+        .forEach(button => {
+
+          button.classList.toggle(
+            "active",
+            button.dataset.level ===
+              currentLevel
+          );
+
+        });
+
+    }
+
+
+    document
+      .querySelectorAll(".level-btn")
+      .forEach(button => {
+
+        button.addEventListener(
+          "click",
+          function() {
+
+            currentLevel =
+              this.dataset.level;
+
+
+            updateLevelButtons();
+
+            newStory();
+
+          }
+        );
+
+      });
+
+
+    /* =====================================================
+       BUTTON EVENTS
+    ===================================================== */
+
+    document
+      .getElementById("submitBtn")
+      .addEventListener(
+        "click",
+        submitReading
+      );
+
+
+    document
+      .getElementById("newStoryBtn")
+      .addEventListener(
+        "click",
+        newStory
+      );
+
+
+    document
+      .getElementById("nextBtn")
+      .addEventListener(
+        "click",
+        nextStory
+      );
+
+
+    document
+      .getElementById("backBtn")
+      .addEventListener(
+        "click",
+        previousStory
+      );
+
+
+    /* =====================================================
+       RESET
+    ===================================================== */
+
+    document
+      .getElementById("resetBtn")
+      .addEventListener(
+        "click",
+        function() {
+
+          const confirmed =
+            confirm(
+              "Reset this reading session?"
+            );
+
+
+          if (!confirmed) return;
+
+
+          currentLevel =
+            "beginner";
+
+
+          passageHistory = [];
+
+          currentPassageIndex = 0;
+
+
+          updateLevelButtons();
+
+          newStory();
+
+        }
+      );
+
+
+    /* =====================================================
+       START APP
+    ===================================================== */
+
+    newStory();
+
+  </script>
+
+</body>
+
+</html>
