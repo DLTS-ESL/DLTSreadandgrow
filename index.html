@@ -81,7 +81,7 @@ input{
 
 .levels{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:repeat(4,1fr);
   gap:10px;
 }
 
@@ -312,22 +312,16 @@ footer{
 }
 
 
-/* B1 COMPREHENSION */
-.b1-only{
-  display:none;
-}
-
+/* =========================================================
+   B1 READING COMPREHENSION
+   ========================================================= */
 .b1-reading{
-  background:#fbfdff;
+  background:#f8fcff;
   border:2px solid #dceef7;
-  border-radius:16px;
+  border-radius:15px;
   padding:18px;
   font-size:20px;
-  line-height:1.85;
-}
-
-.b1-paragraph{
-  margin:0 0 15px;
+  line-height:1.9;
 }
 
 .b1-question{
@@ -350,6 +344,7 @@ footer{
 }
 
 .b1-option{
+  width:100%;
   text-align:left;
   padding:11px 13px;
   border:2px solid #d8edf8;
@@ -360,24 +355,10 @@ footer{
   font:inherit;
 }
 
-.b1-option:hover{
-  background:#eef9ff;
-}
-
-.b1-option.selected{
-  background:#dff3ff;
-  border-color:#55a8d8;
-}
-
-.b1-option.correct{
-  background:#e6f7e8;
-  border-color:#68b875;
-}
-
-.b1-option.wrong{
-  background:#ffe8e8;
-  border-color:#d96b72;
-}
+.b1-option:hover{background:#eef9ff}
+.b1-option.selected{background:#dff3ff;border-color:#55a8d8}
+.b1-option.correct{background:#e6f7e8;border-color:#68b875}
+.b1-option.wrong{background:#ffe8e8;border-color:#d96b72}
 
 .b1-feedback{
   margin-top:8px;
@@ -409,17 +390,18 @@ footer{
   text-align:center;
 }
 
-.b1-skill.good{
-  border:2px solid #79bd83;
-}
+.b1-skill.good{border:2px solid #79bd83}
+.b1-skill.needs{border:2px solid #df858b}
 
-.b1-skill.needs{
-  border:2px solid #df858b;
-}
-
-@media(max-width:600px){
-  .b1-reading{font-size:18px}
-  .b1-skill-grid{grid-template-columns:repeat(2,1fr)}
+.b1-instruction{
+  background:#f0f9ff;
+  border:1px dashed #acd9ee;
+  padding:12px;
+  border-radius:13px;
+  text-align:center;
+  color:#628399;
+  font-size:14px;
+  margin-bottom:15px;
 }
 
 @media(max-width:600px){
@@ -541,7 +523,7 @@ footer{
     >
       <span>🌲</span>
       B1
-      <small>Intermediate · comprehension & inference</small>
+      <small>Intermediate · comprehension</small>
     </button>
 
   </div>
@@ -618,13 +600,14 @@ footer{
 </section>
 
 
-<section class="card b1-only" id="b1QuestionCard">
+<section class="card hidden" id="b1QuestionCard">
 
   <h2>🧠 B1 Reading Comprehension</h2>
 
-  <p class="subtitle">
-    Read the passage carefully, then choose the best answer.
-  </p>
+  <div class="b1-instruction">
+    Read the passage carefully. Then answer all five questions.
+    Each question checks a different B1 reading skill.
+  </div>
 
   <div id="b1Questions"></div>
 
@@ -925,11 +908,9 @@ flyer:[
 
 ],
 
+
 /* =========================================================
-   B1
-   - 150–220 words
-   - Familiar everyday topics
-   - Main idea, detail, context clues, inference, sequence/feelings
+   B1 · INTERMEDIATE
    ========================================================= */
 
 b1:[
@@ -1070,10 +1051,8 @@ function makePassage(level){
 
     accuracy:100,
 
-    b1Answers:level==="b1" ? [null,null,null,null,null] : [],
-
+    b1Answers: level==="b1" ? [null,null,null,null,null] : [],
     b1Correct:0,
-
     b1Submitted:false
 
   };
@@ -1088,310 +1067,52 @@ function getWordKey(i){
 }
 
 
+
 /* =========================================================
-   B1 COMPREHENSION
+   B1 QUESTION BANK
    ========================================================= */
 
-const B1_SKILLS = [
-  "Main Idea",
-  "Detail",
-  "Context Clue",
-  "Inference",
-  "Sequence / Feeling"
-];
-
-const B1_QUESTIONS = {
+const B1_QUESTIONS={
 
   "The Community Garden":[
-    {
-      skill:"Main Idea",
-      q:"What is the passage mainly about?",
-      options:[
-        "How students learned from creating a community garden",
-        "Why students dislike working outside",
-        "How to cook vegetables in a community kitchen",
-        "Why flowers are easier to grow than vegetables"
-      ],
-      answer:0
-    },
-    {
-      skill:"Detail",
-      q:"Why did the teacher ask the students to investigate other solutions?",
-      options:[
-        "The garden was too small.",
-        "The students wanted to grow flowers.",
-        "The teacher wanted them to find safer ways to deal with the insects.",
-        "The vegetables were ready to harvest."
-      ],
-      answer:2
-    },
-    {
-      skill:"Context Clue",
-      q:"In the passage, what does “cooperation” most likely mean?",
-      options:[
-        "Working together",
-        "Working alone",
-        "Working quickly",
-        "Working outside"
-      ],
-      answer:0
-    },
-    {
-      skill:"Inference",
-      q:"What can we infer about Maya at the end of the project?",
-      options:[
-        "She regretted joining the project.",
-        "She learned more than she had expected.",
-        "She decided she did not like gardening.",
-        "She wanted to stop working with her classmates."
-      ],
-      answer:1
-    },
-    {
-      skill:"Sequence / Feeling",
-      q:"How did Maya most likely feel when the first vegetables were collected?",
-      options:[
-        "Proud of what the group had achieved",
-        "Angry that the plants had grown",
-        "Worried that the garden would disappear",
-        "Bored because the project was finished"
-      ],
-      answer:0
-    }
+    {skill:"Main Idea",q:"What is the passage mainly about?",options:["How students learned from creating a community garden","Why students dislike working outside","How to cook vegetables in a community kitchen","Why flowers are easier to grow than vegetables"],answer:0},
+    {skill:"Detail",q:"Why did the teacher ask the students to investigate other solutions?",options:["The garden was too small.","The students wanted to grow flowers.","The teacher wanted them to find safer ways to deal with the insects.","The vegetables were ready to harvest."],answer:2},
+    {skill:"Context Clue",q:"In the passage, what does “cooperation” most likely mean?",options:["Working together","Working alone","Working quickly","Working outside"],answer:0},
+    {skill:"Inference",q:"What can we infer about Maya at the end of the project?",options:["She regretted joining the project.","She learned more than she had expected.","She decided she did not like gardening.","She wanted to stop working with her classmates."],answer:1},
+    {skill:"Sequence / Feeling",q:"How did Maya most likely feel when the first vegetables were collected?",options:["Proud of what the group had achieved","Angry that the plants had grown","Worried that the garden would disappear","Bored because the project was finished"],answer:0}
   ],
 
   "A Missed Train":[
-    {
-      skill:"Main Idea",
-      q:"What is the main lesson Daniel learned?",
-      options:[
-        "Train journeys are always stressful.",
-        "Arriving early is the only important thing.",
-        "Passengers should pay attention to changes and announcements.",
-        "People should never buy drinks at stations."
-      ],
-      answer:2
-    },
-    {
-      skill:"Detail",
-      q:"Why did Daniel miss his train?",
-      options:[
-        "He arrived late at the station.",
-        "The platform changed and he did not reach it in time.",
-        "He lost his ticket.",
-        "His friend gave him the wrong information."
-      ],
-      answer:1
-    },
-    {
-      skill:"Context Clue",
-      q:"In the passage, what does “frustrated” most likely mean?",
-      options:[
-        "Pleased because something went well",
-        "Confused but excited",
-        "Upset because something did not go as planned",
-        "Tired after a long journey"
-      ],
-      answer:2
-    },
-    {
-      skill:"Inference",
-      q:"What can we infer about Daniel's friend?",
-      options:[
-        "The friend was angry with Daniel.",
-        "The friend was understanding about the problem.",
-        "The friend had missed the train too.",
-        "The friend worked at the station."
-      ],
-      answer:1
-    },
-    {
-      skill:"Sequence / Feeling",
-      q:"How did Daniel feel after he realised he had missed the train?",
-      options:[
-        "Frustrated",
-        "Excited",
-        "Proud",
-        "Relaxed"
-      ],
-      answer:0
-    }
+    {skill:"Main Idea",q:"What is the main lesson Daniel learned?",options:["Train journeys are always stressful.","Arriving early is the only important thing.","Passengers should pay attention to changes and announcements.","People should never buy drinks at stations."],answer:2},
+    {skill:"Detail",q:"Why did Daniel miss his train?",options:["He arrived late at the station.","The platform changed and he did not reach it in time.","He lost his ticket.","His friend gave him the wrong information."],answer:1},
+    {skill:"Context Clue",q:"In the passage, what does “frustrated” most likely mean?",options:["Pleased because something went well","Confused but excited","Upset because something did not go as planned","Tired after a long journey"],answer:2},
+    {skill:"Inference",q:"What can we infer about Daniel's friend?",options:["The friend was angry with Daniel.","The friend was understanding about the problem.","The friend had missed the train too.","The friend worked at the station."],answer:1},
+    {skill:"Sequence / Feeling",q:"How did Daniel feel after he realised he had missed the train?",options:["Frustrated","Excited","Proud","Relaxed"],answer:0}
   ],
 
   "The School Podcast":[
-    {
-      skill:"Main Idea",
-      q:"What is the passage mainly about?",
-      options:[
-        "Why podcasts are easy to make",
-        "How students planned, created, and improved a podcast",
-        "Why students should interview teachers",
-        "How to become a professional radio presenter"
-      ],
-      answer:1
-    },
-    {
-      skill:"Detail",
-      q:"What problem happened during the students' first recording?",
-      options:[
-        "The microphone was missing.",
-        "The students forgot their questions.",
-        "A loud noise made the interview difficult to hear.",
-        "The librarian cancelled the interview."
-      ],
-      answer:2
-    },
-    {
-      skill:"Context Clue",
-      q:"What does “unnecessary” most likely mean in the passage?",
-      options:[
-        "Not needed",
-        "Very interesting",
-        "Difficult to understand",
-        "Recently recorded"
-      ],
-      answer:0
-    },
-    {
-      skill:"Inference",
-      q:"What can we infer about the students?",
-      options:[
-        "They gave up when they had a problem.",
-        "They were willing to improve their work.",
-        "They did not enjoy working together.",
-        "They wanted their teacher to make the podcast."
-      ],
-      answer:1
-    },
-    {
-      skill:"Sequence / Feeling",
-      q:"How did the students most likely feel after publishing their first episode?",
-      options:[
-        "Pleased but aware that they could improve",
-        "Angry that the project had ended",
-        "Disappointed because nobody helped them",
-        "Bored with the final result"
-      ],
-      answer:0
-    }
+    {skill:"Main Idea",q:"What is the passage mainly about?",options:["Why podcasts are easy to make","How students planned, created, and improved a podcast","Why students should interview teachers","How to become a professional radio presenter"],answer:1},
+    {skill:"Detail",q:"What problem happened during the students' first recording?",options:["The microphone was missing.","The students forgot their questions.","A loud noise made the interview difficult to hear.","The librarian cancelled the interview."],answer:2},
+    {skill:"Context Clue",q:"What does “unnecessary” most likely mean in the passage?",options:["Not needed","Very interesting","Difficult to understand","Recently recorded"],answer:0},
+    {skill:"Inference",q:"What can we infer about the students?",options:["They gave up when they had a problem.","They were willing to improve their work.","They did not enjoy working together.","They wanted their teacher to make the podcast."],answer:1},
+    {skill:"Sequence / Feeling",q:"How did the students most likely feel after publishing their first episode?",options:["Pleased but aware that they could improve","Angry that the project had ended","Disappointed because nobody helped them","Bored with the final result"],answer:0}
   ],
 
   "A Weekend Without Screens":[
-    {
-      skill:"Main Idea",
-      q:"What is the main idea of the passage?",
-      options:[
-        "Ben discovers that a screen-free weekend can be enjoyable.",
-        "Ben decides to stop using bicycles.",
-        "Ben's father does not know how to repair bicycles.",
-        "Ben's family spends the whole weekend playing board games."
-      ],
-      answer:0
-    },
-    {
-      skill:"Detail",
-      q:"What problem did the bicycle have?",
-      options:[
-        "Its wheels were missing.",
-        "The chain kept falling off and a brake did not work properly.",
-        "The seat was too high.",
-        "The bicycle had no pedals."
-      ],
-      answer:1
-    },
-    {
-      skill:"Context Clue",
-      q:"What does “encouraged” most likely mean?",
-      options:[
-        "Told someone to give up",
-        "Helped someone feel willing to continue",
-        "Asked someone to leave",
-        "Made someone feel nervous"
-      ],
-      answer:1
-    },
-    {
-      skill:"Inference",
-      q:"What can we infer about Ben at the beginning of the weekend?",
-      options:[
-        "He expected to enjoy the weekend.",
-        "He was worried that the weekend would be boring.",
-        "He wanted to repair the bicycle immediately.",
-        "He disliked playing video games."
-      ],
-      answer:1
-    },
-    {
-      skill:"Sequence / Feeling",
-      q:"How did Ben's opinion change by Sunday night?",
-      options:[
-        "He decided screens were never useful.",
-        "He thought the weekend had been more enjoyable than expected.",
-        "He became angry with his family.",
-        "He decided to sell his bicycle."
-      ],
-      answer:1
-    }
+    {skill:"Main Idea",q:"What is the main idea of the passage?",options:["Ben discovers that a screen-free weekend can be enjoyable.","Ben decides to stop using bicycles.","Ben's father does not know how to repair bicycles.","Ben's family spends the whole weekend playing board games."],answer:0},
+    {skill:"Detail",q:"What problem did the bicycle have?",options:["Its wheels were missing.","The chain kept falling off and a brake did not work properly.","The seat was too high.","The bicycle had no pedals."],answer:1},
+    {skill:"Context Clue",q:"What does “encouraged” most likely mean?",options:["Told someone to give up","Helped someone feel willing to continue","Asked someone to leave","Made someone feel nervous"],answer:1},
+    {skill:"Inference",q:"What can we infer about Ben at the beginning of the weekend?",options:["He expected to enjoy the weekend.","He was worried that the weekend would be boring.","He wanted to repair the bicycle immediately.","He disliked playing video games."],answer:1},
+    {skill:"Sequence / Feeling",q:"How did Ben's opinion change by Sunday night?",options:["He decided screens were never useful.","He thought the weekend had been more enjoyable than expected.","He became angry with his family.","He decided to sell his bicycle."],answer:1}
   ],
 
   "The Lost Photograph":[
-    {
-      skill:"Main Idea",
-      q:"What is the passage mainly about?",
-      options:[
-        "A grandmother's old bicycle",
-        "A photograph that reminds Sofia's grandmother of an old dream",
-        "Why old photographs should be thrown away",
-        "A trip Sofia plans to take"
-      ],
-      answer:1
-    },
-    {
-      skill:"Detail",
-      q:"Why was the grandmother's bicycle trip cancelled?",
-      options:[
-        "She lost her bicycle.",
-        "The weather was too bad.",
-        "One of her friends became ill.",
-        "Her family moved away."
-      ],
-      answer:2
-    },
-    {
-      skill:"Context Clue",
-      q:"What does “regretted” most likely mean?",
-      options:[
-        "Felt sorry that something had not happened",
-        "Forgot something important",
-        "Enjoyed something very much",
-        "Planned something carefully"
-      ],
-      answer:0
-    },
-    {
-      skill:"Inference",
-      q:"What can we infer about Sofia's grandmother?",
-      options:[
-        "She believes one missed opportunity means life cannot change.",
-        "She has continued to find new experiences after her original plan changed.",
-        "She dislikes travelling with other people.",
-        "She does not remember anything about her youth."
-      ],
-      answer:1
-    },
-    {
-      skill:"Sequence / Feeling",
-      q:"Why did Sofia want to keep a copy of the photograph?",
-      options:[
-        "She wanted to sell it.",
-        "She wanted to remember the story behind it.",
-        "She needed it for a school project.",
-        "She wanted to repair the cupboard."
-      ],
-      answer:1
-    }
+    {skill:"Main Idea",q:"What is the passage mainly about?",options:["A grandmother's old bicycle","A photograph that reminds Sofia's grandmother of an old dream","Why old photographs should be thrown away","A trip Sofia plans to take"],answer:1},
+    {skill:"Detail",q:"Why was the grandmother's bicycle trip cancelled?",options:["She lost her bicycle.","The weather was too bad.","One of her friends became ill.","Her family moved away."],answer:2},
+    {skill:"Context Clue",q:"What does “regretted” most likely mean?",options:["Felt sorry that something had not happened","Forgot something important","Enjoyed something very much","Planned something carefully"],answer:0},
+    {skill:"Inference",q:"What can we infer about Sofia's grandmother?",options:["She believes one missed opportunity means life cannot change.","She has continued to find new experiences after her original plan changed.","She dislikes travelling with other people.","She does not remember anything about her youth."],answer:1},
+    {skill:"Sequence / Feeling",q:"Why did Sofia want to keep a copy of the photograph?",options:["She wanted to sell it.","She wanted to remember the story behind it.","She needed it for a school project.","She wanted to repair the cupboard."],answer:1}
   ]
-
 };
 
 function isB1(p){
@@ -1403,11 +1124,11 @@ function renderB1Questions(p){
   const container=$("b1Questions");
 
   if(!isB1(p)){
-    card.style.display="none";
+    card.classList.add("hidden");
     return;
   }
 
-  card.style.display="block";
+  card.classList.remove("hidden");
   container.innerHTML="";
 
   const questions=B1_QUESTIONS[p.title] || [];
@@ -1429,17 +1150,15 @@ function renderB1Questions(p){
       btn.type="button";
       btn.className="b1-option";
       btn.textContent=option;
-      btn.dataset.question=qIndex;
-      btn.dataset.option=oIndex;
 
-      if(p.b1Answers && p.b1Answers[qIndex]===oIndex){
+      if(p.b1Answers[qIndex]===oIndex){
         btn.classList.add("selected");
       }
 
       if(p.b1Submitted){
         btn.disabled=true;
         if(oIndex===item.answer) btn.classList.add("correct");
-        if(p.b1Answers && p.b1Answers[qIndex]===oIndex && oIndex!==item.answer){
+        if(p.b1Answers[qIndex]===oIndex && oIndex!==item.answer){
           btn.classList.add("wrong");
         }
       }else{
@@ -1458,10 +1177,9 @@ function renderB1Questions(p){
     if(p.b1Submitted){
       const feedback=document.createElement("div");
       feedback.className="b1-feedback";
-      feedback.textContent =
-        p.b1Answers[qIndex]===item.answer ? "✓ Correct" : "✗ Review this question";
-      feedback.style.color =
-        p.b1Answers[qIndex]===item.answer ? "#4f9b5b" : "#c34c54";
+      const correct=p.b1Answers[qIndex]===item.answer;
+      feedback.textContent=correct ? "✓ Correct" : "✗ Review this question";
+      feedback.style.color=correct ? "#4f9b5b" : "#c34c54";
       box.appendChild(feedback);
     }
 
@@ -1471,27 +1189,22 @@ function renderB1Questions(p){
   $("b1SubmitBtn").style.display=p.b1Submitted ? "none" : "block";
 
   if(p.b1Submitted){
-    const correct=p.b1Correct;
     const total=questions.length;
-    const percent=total ? Math.round(correct/total*100) : 0;
-
+    const percent=total ? Math.round(p.b1Correct/total*100) : 0;
     $("b1Result").classList.remove("hidden");
-    $("b1Score").textContent=`${correct} / ${total} correct · ${percent}%`;
-    $("b1Feedback").textContent =
-      percent>=80
-        ? "🌟 Strong B1 comprehension!"
-        : percent>=60
-          ? "👏 Good work. Keep practising your reading skills."
-          : "🌱 Keep practising main ideas, details, and inference.";
+    $("b1Score").textContent=`${p.b1Correct} / ${total} correct · ${percent}%`;
+    $("b1Feedback").textContent=percent>=80
+      ? "🌟 Strong B1 comprehension!"
+      : percent>=60
+        ? "👏 Good work. Keep practising your reading skills."
+        : "🌱 Keep practising main ideas, details, and inference.";
 
     $("b1Skills").innerHTML="";
-
     questions.forEach((q,i)=>{
       const s=document.createElement("div");
-      s.className="b1-skill "+(
-        p.b1Answers[i]===q.answer ? "good" : "needs"
-      );
-      s.innerHTML=`<strong>${p.b1Answers[i]===q.answer?"✓":"•"}</strong><br>${q.skill}`;
+      const good=p.b1Answers[i]===q.answer;
+      s.className="b1-skill "+(good ? "good" : "needs");
+      s.innerHTML=`<strong>${good ? "✓" : "•"}</strong><br>${q.skill}`;
       $("b1Skills").appendChild(s);
     });
   }else{
@@ -1501,30 +1214,26 @@ function renderB1Questions(p){
 
 function submitB1(){
   const p=getCurrent();
-
   if(!isB1(p)) return;
 
   const questions=B1_QUESTIONS[p.title] || [];
-
   if(p.b1Answers.some(x=>x===null)){
     alert("Please answer all five B1 reading questions before submitting.");
     return;
   }
 
-  p.b1Correct=questions.reduce(
-    (sum,q,i)=>sum+(p.b1Answers[i]===q.answer ? 1 : 0),
-    0
-  );
-
+  p.b1Correct=questions.reduce((sum,q,i)=>
+    sum+(p.b1Answers[i]===q.answer ? 1 : 0),0);
   p.b1Submitted=true;
   renderB1Questions(p);
   updateDisplay();
-  updateSession();
 }
+
 
 /* =========================================================
    DISPLAY STORY
    ========================================================= */
+
 
 function renderStoryText(passage,target,clickable){
 
@@ -1630,26 +1339,19 @@ function updateDisplay(){
   $("storyTitle").textContent =
     p.title;
 
-  $("submitBtn").textContent =
-    isB1(p) ? "📚 Submit Reading" : "📚 Submit Reading";
-
   renderStoryText(
     p,
     $("storyText"),
     !isB1(p)
   );
 
+  $("storyText").classList.toggle("b1-reading",isB1(p));
+
   const hint=document.querySelector(".hint");
   if(hint){
     hint.innerHTML=isB1(p)
-      ? "📖 Read for meaning. Then answer the five comprehension questions below."
+      ? "📖 Read for meaning. Then answer the five B1 comprehension questions below."
       : "👂 Listen as the student reads.<br>Tap a word to mark it incorrect.<br>Tap it again to correct it.";
-  }
-
-  if(isB1(p)){
-    $("storyText").classList.add("b1-reading");
-  }else{
-    $("storyText").classList.remove("b1-reading");
   }
 
   renderB1Questions(p);
@@ -1735,23 +1437,16 @@ function showResult(p){
   $("resultMessage").textContent =
 
     isB1(p)
-      ? (
-          p.b1Submitted
-            ? `🧠 B1 comprehension: ${p.b1Correct}/5 correct (${Math.round(p.b1Correct/5*100)}%).`
-            : "🧠 Complete the B1 comprehension questions below."
-        )
-      : (
-          p.accuracy>=90
-            ? "🌟 Excellent reading! Keep growing!"
-
+      ? (p.b1Submitted
+          ? `🧠 B1 comprehension: ${p.b1Correct}/5 correct (${Math.round(p.b1Correct/5*100)}%).`
+          : "🧠 Complete the B1 comprehension questions below.")
+      : (p.accuracy>=90
+          ? "🌟 Excellent reading! Keep growing!"
           : p.accuracy>=75
             ? "👏 Great job! Keep practising!"
-
-          : p.accuracy>=60
-            ? "🌱 Good effort! Let's practise some more."
-
-          : "💪 Keep trying. Every reading helps you grow!"
-        );
+            : p.accuracy>=60
+              ? "🌱 Good effort! Let's practise some more."
+              : "💪 Keep trying. Every reading helps you grow!");
 
 
   renderStoryText(
