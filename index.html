@@ -311,6 +311,117 @@ footer{
   padding:5px 0 18px;
 }
 
+
+/* B1 COMPREHENSION */
+.b1-only{
+  display:none;
+}
+
+.b1-reading{
+  background:#fbfdff;
+  border:2px solid #dceef7;
+  border-radius:16px;
+  padding:18px;
+  font-size:20px;
+  line-height:1.85;
+}
+
+.b1-paragraph{
+  margin:0 0 15px;
+}
+
+.b1-question{
+  border:2px solid #e0eef6;
+  border-radius:15px;
+  padding:15px;
+  margin-bottom:12px;
+  background:#fff;
+}
+
+.b1-question-title{
+  font-weight:bold;
+  color:#347fa8;
+  margin-bottom:10px;
+}
+
+.b1-options{
+  display:grid;
+  gap:8px;
+}
+
+.b1-option{
+  text-align:left;
+  padding:11px 13px;
+  border:2px solid #d8edf8;
+  border-radius:11px;
+  background:#f8fcff;
+  color:#31576c;
+  cursor:pointer;
+  font:inherit;
+}
+
+.b1-option:hover{
+  background:#eef9ff;
+}
+
+.b1-option.selected{
+  background:#dff3ff;
+  border-color:#55a8d8;
+}
+
+.b1-option.correct{
+  background:#e6f7e8;
+  border-color:#68b875;
+}
+
+.b1-option.wrong{
+  background:#ffe8e8;
+  border-color:#d96b72;
+}
+
+.b1-feedback{
+  margin-top:8px;
+  font-size:14px;
+  font-weight:bold;
+}
+
+.b1-result{
+  background:#f1f9ff;
+  border:2px solid #cfe8f6;
+  border-radius:14px;
+  padding:14px;
+  margin-top:15px;
+  text-align:center;
+}
+
+.b1-skill-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:7px;
+  margin-top:12px;
+}
+
+.b1-skill{
+  background:white;
+  border-radius:10px;
+  padding:8px 4px;
+  font-size:12px;
+  text-align:center;
+}
+
+.b1-skill.good{
+  border:2px solid #79bd83;
+}
+
+.b1-skill.needs{
+  border:2px solid #df858b;
+}
+
+@media(max-width:600px){
+  .b1-reading{font-size:18px}
+  .b1-skill-grid{grid-template-columns:repeat(2,1fr)}
+}
+
 @media(max-width:600px){
   .app{padding:10px}
   header{padding:14px}
@@ -424,6 +535,15 @@ footer{
       <small>A2 · longer connected reading</small>
     </button>
 
+    <button
+      class="level"
+      data-level="b1"
+    >
+      <span>🌲</span>
+      B1
+      <small>Intermediate · comprehension & inference</small>
+    </button>
+
   </div>
 
 </section>
@@ -493,6 +613,29 @@ footer{
       <div class="small">Accuracy</div>
     </div>
 
+  </div>
+
+</section>
+
+
+<section class="card b1-only" id="b1QuestionCard">
+
+  <h2>🧠 B1 Reading Comprehension</h2>
+
+  <p class="subtitle">
+    Read the passage carefully, then choose the best answer.
+  </p>
+
+  <div id="b1Questions"></div>
+
+  <button class="submit" id="b1SubmitBtn" type="button">
+    🧠 Check B1 Answers
+  </button>
+
+  <div class="b1-result hidden" id="b1Result">
+    <strong id="b1Score"></strong>
+    <div id="b1Feedback" style="margin-top:6px"></div>
+    <div class="b1-skill-grid" id="b1Skills"></div>
   </div>
 
 </section>
@@ -628,6 +771,13 @@ const LEVELS = {
     cefr:"A2",
     icon:"🌳",
     target:"100–130 words"
+  },
+
+  b1:{
+    name:"B1",
+    cefr:"Intermediate",
+    icon:"🌲",
+    target:"150–220 words"
   }
 
 };
@@ -773,6 +923,75 @@ flyer:[
   `The students in Class Five were asked to suggest ways to make their journey to school more environmentally friendly. At first, many children thought that there was little they could do because their families lived far away. Their teacher encouraged them to examine their daily routines before deciding on a solution. Some students discovered that they could share a car with neighbours who lived nearby. Others could walk safely with an adult or use the school bus instead of travelling in separate cars. The class also discussed why cycling was not suitable for every student or every road. After collecting information for two weeks, they created a poster showing the different choices available to families.`
 }
 
+],
+
+/* =========================================================
+   B1
+   - 150–220 words
+   - Familiar everyday topics
+   - Main idea, detail, context clues, inference, sequence/feelings
+   ========================================================= */
+
+b1:[
+
+{
+  title:"The Community Garden",
+  text:
+  `When Maya's school announced that students could help create a community garden, she decided to join. At first, she thought the project would mainly involve planting flowers. However, the teacher explained that the garden would also provide fresh vegetables for a nearby community kitchen. Maya and her classmates spent their first Saturday preparing the soil and deciding where each plant should go. Some students wanted to grow tomatoes, while others preferred beans and herbs.
+
+  A few weeks later, the plants began to grow. Unfortunately, several leaves were covered with tiny insects. One student suggested using a strong chemical spray, but the teacher asked the class to investigate other solutions first. They discovered that some insects could be removed by hand and that certain plants could attract helpful insects.
+
+  By the end of the term, the students had collected their first vegetables. Maya was surprised by how much she had learned. She had joined because she wanted to help, but she realised that the garden had taught her about cooperation, patience, and making careful decisions.`
+},
+
+{
+  title:"A Missed Train",
+  text:
+  `Daniel arrived at the train station twenty minutes before his train was due to leave. He felt confident that he had plenty of time, so he bought a drink and checked his phone while waiting. When he looked at the departure board again, he noticed that the platform had changed. He quickly picked up his bag and followed the signs.
+
+  Unfortunately, Daniel reached the new platform just as the doors were closing. He watched the train disappear and felt frustrated with himself. Instead of calling his friend immediately, he went to the information desk to find out when the next train would arrive. The assistant explained that another train would leave in forty minutes.
+
+  Daniel used the extra time to call his friend and explain what had happened. His friend was understanding and told him not to worry. Daniel then checked the station map carefully so that he would know exactly where to go for the next train.
+
+  The experience made Daniel realise that arriving early was not enough. He also needed to pay attention to announcements and changes. On the next journey, he promised himself that he would check the departure board regularly.`
+},
+
+{
+  title:"The School Podcast",
+  text:
+  `A group of students decided to create a podcast about life at their school. At first, they planned to record interviews with teachers and students. They soon discovered, however, that making a podcast required more work than simply asking questions and speaking into a microphone.
+
+  The students divided the jobs between them. One group prepared questions, another recorded the interviews, and two students learned how to edit the recordings. They also had to decide which information should be included and which parts were unnecessary. During their first recording, a loud noise from a nearby classroom made the interview difficult to hear. Rather than giving up, they moved to a quieter room and recorded the interview again.
+
+  After several weeks, they published their first episode. It included an interview with the school librarian, a short discussion about student hobbies, and information about a new reading club. The students were pleased with the result, but they also noticed several things they could improve.
+
+  Their teacher told them that the most important part of the project was not making a perfect first episode. It was learning how to plan, solve problems, and improve their work.`
+},
+
+{
+  title:"A Weekend Without Screens",
+  text:
+  `When Ben's family decided to spend one weekend without television, tablets, or video games, Ben was not excited. He believed the weekend would be boring because there would be nothing interesting to do. His parents suggested that everyone choose one activity, so Ben decided to help his father repair an old bicycle.
+
+  At first, the bicycle seemed impossible to fix. The chain kept falling off, and one of the brakes did not work properly. Ben wanted to stop, but his father encouraged him to look carefully at each problem. They watched how the different parts moved and discovered that the chain needed to be adjusted.
+
+  Later that afternoon, Ben took the repaired bicycle outside. He rode around the neighbourhood while his younger sister walked beside him. In the evening, the family cooked dinner together and played a board game.
+
+  On Sunday night, Ben admitted that the weekend had been more enjoyable than he expected. He still wanted to play video games again, but he had discovered that having no screen available had encouraged him to try activities he might otherwise have ignored.`
+},
+
+{
+  title:"The Lost Photograph",
+  text:
+  `Sofia was helping her grandmother clean an old cupboard when she found a small envelope hidden behind a stack of books. Inside was a black-and-white photograph of a young woman standing beside a bicycle. Sofia immediately recognised the woman as her grandmother, although she had never seen the photograph before.
+
+  Her grandmother explained that the photograph had been taken when she was seventeen. At that time, she had wanted to travel around the country by bicycle with two friends. The trip never happened because one of her friends became ill and the plans were cancelled.
+
+  Sofia noticed that her grandmother still smiled when she talked about the idea. She asked whether she regretted not going. Her grandmother thought for a moment and said that she sometimes wondered what the journey would have been like, but she had later found other ways to travel and meet people.
+
+  Before putting the photograph away, Sofia asked if she could make a copy. Her grandmother agreed. She said that the picture was a useful reminder that plans sometimes change, but that does not mean a person has to stop making new ones. Sofia kept the copy on her desk.`
+}
+
 ]
 
 };
@@ -849,7 +1068,13 @@ function makePassage(level){
 
     correct:0,
 
-    accuracy:100
+    accuracy:100,
+
+    b1Answers:level==="b1" ? [null,null,null,null,null] : [],
+
+    b1Correct:0,
+
+    b1Submitted:false
 
   };
 
@@ -862,6 +1087,440 @@ function getWordKey(i){
 
 }
 
+
+/* =========================================================
+   B1 COMPREHENSION
+   ========================================================= */
+
+const B1_SKILLS = [
+  "Main Idea",
+  "Detail",
+  "Context Clue",
+  "Inference",
+  "Sequence / Feeling"
+];
+
+const B1_QUESTIONS = {
+
+  "The Community Garden":[
+    {
+      skill:"Main Idea",
+      q:"What is the passage mainly about?",
+      options:[
+        "How students learned from creating a community garden",
+        "Why students dislike working outside",
+        "How to cook vegetables in a community kitchen",
+        "Why flowers are easier to grow than vegetables"
+      ],
+      answer:0
+    },
+    {
+      skill:"Detail",
+      q:"Why did the teacher ask the students to investigate other solutions?",
+      options:[
+        "The garden was too small.",
+        "The students wanted to grow flowers.",
+        "The teacher wanted them to find safer ways to deal with the insects.",
+        "The vegetables were ready to harvest."
+      ],
+      answer:2
+    },
+    {
+      skill:"Context Clue",
+      q:"In the passage, what does “cooperation” most likely mean?",
+      options:[
+        "Working together",
+        "Working alone",
+        "Working quickly",
+        "Working outside"
+      ],
+      answer:0
+    },
+    {
+      skill:"Inference",
+      q:"What can we infer about Maya at the end of the project?",
+      options:[
+        "She regretted joining the project.",
+        "She learned more than she had expected.",
+        "She decided she did not like gardening.",
+        "She wanted to stop working with her classmates."
+      ],
+      answer:1
+    },
+    {
+      skill:"Sequence / Feeling",
+      q:"How did Maya most likely feel when the first vegetables were collected?",
+      options:[
+        "Proud of what the group had achieved",
+        "Angry that the plants had grown",
+        "Worried that the garden would disappear",
+        "Bored because the project was finished"
+      ],
+      answer:0
+    }
+  ],
+
+  "A Missed Train":[
+    {
+      skill:"Main Idea",
+      q:"What is the main lesson Daniel learned?",
+      options:[
+        "Train journeys are always stressful.",
+        "Arriving early is the only important thing.",
+        "Passengers should pay attention to changes and announcements.",
+        "People should never buy drinks at stations."
+      ],
+      answer:2
+    },
+    {
+      skill:"Detail",
+      q:"Why did Daniel miss his train?",
+      options:[
+        "He arrived late at the station.",
+        "The platform changed and he did not reach it in time.",
+        "He lost his ticket.",
+        "His friend gave him the wrong information."
+      ],
+      answer:1
+    },
+    {
+      skill:"Context Clue",
+      q:"In the passage, what does “frustrated” most likely mean?",
+      options:[
+        "Pleased because something went well",
+        "Confused but excited",
+        "Upset because something did not go as planned",
+        "Tired after a long journey"
+      ],
+      answer:2
+    },
+    {
+      skill:"Inference",
+      q:"What can we infer about Daniel's friend?",
+      options:[
+        "The friend was angry with Daniel.",
+        "The friend was understanding about the problem.",
+        "The friend had missed the train too.",
+        "The friend worked at the station."
+      ],
+      answer:1
+    },
+    {
+      skill:"Sequence / Feeling",
+      q:"How did Daniel feel after he realised he had missed the train?",
+      options:[
+        "Frustrated",
+        "Excited",
+        "Proud",
+        "Relaxed"
+      ],
+      answer:0
+    }
+  ],
+
+  "The School Podcast":[
+    {
+      skill:"Main Idea",
+      q:"What is the passage mainly about?",
+      options:[
+        "Why podcasts are easy to make",
+        "How students planned, created, and improved a podcast",
+        "Why students should interview teachers",
+        "How to become a professional radio presenter"
+      ],
+      answer:1
+    },
+    {
+      skill:"Detail",
+      q:"What problem happened during the students' first recording?",
+      options:[
+        "The microphone was missing.",
+        "The students forgot their questions.",
+        "A loud noise made the interview difficult to hear.",
+        "The librarian cancelled the interview."
+      ],
+      answer:2
+    },
+    {
+      skill:"Context Clue",
+      q:"What does “unnecessary” most likely mean in the passage?",
+      options:[
+        "Not needed",
+        "Very interesting",
+        "Difficult to understand",
+        "Recently recorded"
+      ],
+      answer:0
+    },
+    {
+      skill:"Inference",
+      q:"What can we infer about the students?",
+      options:[
+        "They gave up when they had a problem.",
+        "They were willing to improve their work.",
+        "They did not enjoy working together.",
+        "They wanted their teacher to make the podcast."
+      ],
+      answer:1
+    },
+    {
+      skill:"Sequence / Feeling",
+      q:"How did the students most likely feel after publishing their first episode?",
+      options:[
+        "Pleased but aware that they could improve",
+        "Angry that the project had ended",
+        "Disappointed because nobody helped them",
+        "Bored with the final result"
+      ],
+      answer:0
+    }
+  ],
+
+  "A Weekend Without Screens":[
+    {
+      skill:"Main Idea",
+      q:"What is the main idea of the passage?",
+      options:[
+        "Ben discovers that a screen-free weekend can be enjoyable.",
+        "Ben decides to stop using bicycles.",
+        "Ben's father does not know how to repair bicycles.",
+        "Ben's family spends the whole weekend playing board games."
+      ],
+      answer:0
+    },
+    {
+      skill:"Detail",
+      q:"What problem did the bicycle have?",
+      options:[
+        "Its wheels were missing.",
+        "The chain kept falling off and a brake did not work properly.",
+        "The seat was too high.",
+        "The bicycle had no pedals."
+      ],
+      answer:1
+    },
+    {
+      skill:"Context Clue",
+      q:"What does “encouraged” most likely mean?",
+      options:[
+        "Told someone to give up",
+        "Helped someone feel willing to continue",
+        "Asked someone to leave",
+        "Made someone feel nervous"
+      ],
+      answer:1
+    },
+    {
+      skill:"Inference",
+      q:"What can we infer about Ben at the beginning of the weekend?",
+      options:[
+        "He expected to enjoy the weekend.",
+        "He was worried that the weekend would be boring.",
+        "He wanted to repair the bicycle immediately.",
+        "He disliked playing video games."
+      ],
+      answer:1
+    },
+    {
+      skill:"Sequence / Feeling",
+      q:"How did Ben's opinion change by Sunday night?",
+      options:[
+        "He decided screens were never useful.",
+        "He thought the weekend had been more enjoyable than expected.",
+        "He became angry with his family.",
+        "He decided to sell his bicycle."
+      ],
+      answer:1
+    }
+  ],
+
+  "The Lost Photograph":[
+    {
+      skill:"Main Idea",
+      q:"What is the passage mainly about?",
+      options:[
+        "A grandmother's old bicycle",
+        "A photograph that reminds Sofia's grandmother of an old dream",
+        "Why old photographs should be thrown away",
+        "A trip Sofia plans to take"
+      ],
+      answer:1
+    },
+    {
+      skill:"Detail",
+      q:"Why was the grandmother's bicycle trip cancelled?",
+      options:[
+        "She lost her bicycle.",
+        "The weather was too bad.",
+        "One of her friends became ill.",
+        "Her family moved away."
+      ],
+      answer:2
+    },
+    {
+      skill:"Context Clue",
+      q:"What does “regretted” most likely mean?",
+      options:[
+        "Felt sorry that something had not happened",
+        "Forgot something important",
+        "Enjoyed something very much",
+        "Planned something carefully"
+      ],
+      answer:0
+    },
+    {
+      skill:"Inference",
+      q:"What can we infer about Sofia's grandmother?",
+      options:[
+        "She believes one missed opportunity means life cannot change.",
+        "She has continued to find new experiences after her original plan changed.",
+        "She dislikes travelling with other people.",
+        "She does not remember anything about her youth."
+      ],
+      answer:1
+    },
+    {
+      skill:"Sequence / Feeling",
+      q:"Why did Sofia want to keep a copy of the photograph?",
+      options:[
+        "She wanted to sell it.",
+        "She wanted to remember the story behind it.",
+        "She needed it for a school project.",
+        "She wanted to repair the cupboard."
+      ],
+      answer:1
+    }
+  ]
+
+};
+
+function isB1(p){
+  return p && p.level==="b1";
+}
+
+function renderB1Questions(p){
+  const card=$("b1QuestionCard");
+  const container=$("b1Questions");
+
+  if(!isB1(p)){
+    card.style.display="none";
+    return;
+  }
+
+  card.style.display="block";
+  container.innerHTML="";
+
+  const questions=B1_QUESTIONS[p.title] || [];
+
+  questions.forEach((item,qIndex)=>{
+    const box=document.createElement("div");
+    box.className="b1-question";
+
+    const title=document.createElement("div");
+    title.className="b1-question-title";
+    title.textContent=`${qIndex+1}. ${item.q}`;
+    box.appendChild(title);
+
+    const options=document.createElement("div");
+    options.className="b1-options";
+
+    item.options.forEach((option,oIndex)=>{
+      const btn=document.createElement("button");
+      btn.type="button";
+      btn.className="b1-option";
+      btn.textContent=option;
+      btn.dataset.question=qIndex;
+      btn.dataset.option=oIndex;
+
+      if(p.b1Answers && p.b1Answers[qIndex]===oIndex){
+        btn.classList.add("selected");
+      }
+
+      if(p.b1Submitted){
+        btn.disabled=true;
+        if(oIndex===item.answer) btn.classList.add("correct");
+        if(p.b1Answers && p.b1Answers[qIndex]===oIndex && oIndex!==item.answer){
+          btn.classList.add("wrong");
+        }
+      }else{
+        btn.addEventListener("click",()=>{
+          p.b1Answers[qIndex]=oIndex;
+          [...options.children].forEach(x=>x.classList.remove("selected"));
+          btn.classList.add("selected");
+        });
+      }
+
+      options.appendChild(btn);
+    });
+
+    box.appendChild(options);
+
+    if(p.b1Submitted){
+      const feedback=document.createElement("div");
+      feedback.className="b1-feedback";
+      feedback.textContent =
+        p.b1Answers[qIndex]===item.answer ? "✓ Correct" : "✗ Review this question";
+      feedback.style.color =
+        p.b1Answers[qIndex]===item.answer ? "#4f9b5b" : "#c34c54";
+      box.appendChild(feedback);
+    }
+
+    container.appendChild(box);
+  });
+
+  $("b1SubmitBtn").style.display=p.b1Submitted ? "none" : "block";
+
+  if(p.b1Submitted){
+    const correct=p.b1Correct;
+    const total=questions.length;
+    const percent=total ? Math.round(correct/total*100) : 0;
+
+    $("b1Result").classList.remove("hidden");
+    $("b1Score").textContent=`${correct} / ${total} correct · ${percent}%`;
+    $("b1Feedback").textContent =
+      percent>=80
+        ? "🌟 Strong B1 comprehension!"
+        : percent>=60
+          ? "👏 Good work. Keep practising your reading skills."
+          : "🌱 Keep practising main ideas, details, and inference.";
+
+    $("b1Skills").innerHTML="";
+
+    questions.forEach((q,i)=>{
+      const s=document.createElement("div");
+      s.className="b1-skill "+(
+        p.b1Answers[i]===q.answer ? "good" : "needs"
+      );
+      s.innerHTML=`<strong>${p.b1Answers[i]===q.answer?"✓":"•"}</strong><br>${q.skill}`;
+      $("b1Skills").appendChild(s);
+    });
+  }else{
+    $("b1Result").classList.add("hidden");
+  }
+}
+
+function submitB1(){
+  const p=getCurrent();
+
+  if(!isB1(p)) return;
+
+  const questions=B1_QUESTIONS[p.title] || [];
+
+  if(p.b1Answers.some(x=>x===null)){
+    alert("Please answer all five B1 reading questions before submitting.");
+    return;
+  }
+
+  p.b1Correct=questions.reduce(
+    (sum,q,i)=>sum+(p.b1Answers[i]===q.answer ? 1 : 0),
+    0
+  );
+
+  p.b1Submitted=true;
+  renderB1Questions(p);
+  updateDisplay();
+  updateSession();
+}
 
 /* =========================================================
    DISPLAY STORY
@@ -971,11 +1630,29 @@ function updateDisplay(){
   $("storyTitle").textContent =
     p.title;
 
+  $("submitBtn").textContent =
+    isB1(p) ? "📚 Submit Reading" : "📚 Submit Reading";
+
   renderStoryText(
     p,
     $("storyText"),
-    true
+    !isB1(p)
   );
+
+  const hint=document.querySelector(".hint");
+  if(hint){
+    hint.innerHTML=isB1(p)
+      ? "📖 Read for meaning. Then answer the five comprehension questions below."
+      : "👂 Listen as the student reads.<br>Tap a word to mark it incorrect.<br>Tap it again to correct it.";
+  }
+
+  if(isB1(p)){
+    $("storyText").classList.add("b1-reading");
+  }else{
+    $("storyText").classList.remove("b1-reading");
+  }
+
+  renderB1Questions(p);
 
   const total=p.total;
 
@@ -1057,16 +1734,24 @@ function showResult(p){
 
   $("resultMessage").textContent =
 
-    p.accuracy>=90
-      ? "🌟 Excellent reading! Keep growing!"
+    isB1(p)
+      ? (
+          p.b1Submitted
+            ? `🧠 B1 comprehension: ${p.b1Correct}/5 correct (${Math.round(p.b1Correct/5*100)}%).`
+            : "🧠 Complete the B1 comprehension questions below."
+        )
+      : (
+          p.accuracy>=90
+            ? "🌟 Excellent reading! Keep growing!"
 
-    : p.accuracy>=75
-      ? "👏 Great job! Keep practising!"
+          : p.accuracy>=75
+            ? "👏 Great job! Keep practising!"
 
-    : p.accuracy>=60
-      ? "🌱 Good effort! Let's practise some more."
+          : p.accuracy>=60
+            ? "🌱 Good effort! Let's practise some more."
 
-    : "💪 Keep trying. Every reading helps you grow!";
+          : "💪 Keep trying. Every reading helps you grow!"
+        );
 
 
   renderStoryText(
@@ -1271,6 +1956,13 @@ $("submitBtn")
   .addEventListener(
     "click",
     submitReading
+  );
+
+
+$("b1SubmitBtn")
+  .addEventListener(
+    "click",
+    submitB1
   );
 
 
